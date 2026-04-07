@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>FICT — Méthodologie</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f5f7; color: #1d1d1f; }
+.top-nav { background: #1a1a2e; color: white; padding: 0 24px; display: flex; align-items: center; gap: 24px; height: 52px; position: sticky; top: 0; z-index: 1000; }
+.nav-brand { font-weight: 700; font-size: 16px; white-space: nowrap; }
+.nav-links { display: flex; gap: 4px; }
+.nav-link { color: rgba(255,255,255,0.75); text-decoration: none; padding: 6px 12px; border-radius: 6px; font-size: 13px; transition: all .2s; }
+.nav-link:hover, .nav-link.active { background: rgba(255,255,255,0.15); color: white; }
+.container { max-width: 1200px; margin: 0 auto; padding: 24px 20px; }
+.page-title { font-size: 24px; font-weight: 700; margin-bottom: 6px; }
+.page-subtitle { font-size: 14px; color: #666; margin-bottom: 24px; }
+.card { background: white; border-radius: 12px; padding: 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
+.badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; }
+.badge-agri { background: #d4edda; color: #155724; }
+.badge-eco { background: #cce5ff; color: #004085; }
+.badge-egalim { background: #fff3cd; color: #856404; }
+.badge-an { background: #fce8d5; color: #8a3a00; }
+.badge-sen { background: #d9e8ff; color: #003680; }
+.vote-pour { background: #28a745; color: white; }
+.vote-contre { background: #dc3545; color: white; }
+.vote-abstention { background: #fd7e14; color: white; }
+.vote-absent { background: #aaa; color: white; }
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+th { text-align: left; padding: 10px 12px; background: #f8f9fa; font-weight: 600; font-size: 12px; color: #555; border-bottom: 2px solid #eee; cursor: pointer; user-select: none; white-space: nowrap; }
+th:hover { background: #e9ecef; }
+td { padding: 8px 12px; border-bottom: 1px solid #f0f0f0; vertical-align: middle; }
+tr:hover td { background: #fafafa; }
+.search-bar { width: 100%; padding: 10px 14px; border: 1px solid #ddd; border-radius: 8px; font-size: 14px; margin-bottom: 12px; }
+.filter-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
+.filter-select { padding: 6px 10px; border: 1px solid #ddd; border-radius: 6px; font-size: 13px; background: white; }
+.stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin-bottom: 24px; }
+.stat-card { background: white; border-radius: 10px; padding: 16px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
+.stat-value { font-size: 28px; font-weight: 700; color: #1a1a2e; }
+.stat-label { font-size: 12px; color: #888; margin-top: 4px; }
+.pagination { display: flex; gap: 4px; justify-content: center; margin-top: 16px; flex-wrap: wrap; }
+.page-btn { padding: 5px 10px; border: 1px solid #ddd; border-radius: 4px; background: white; cursor: pointer; font-size: 13px; }
+.page-btn.active { background: #1a1a2e; color: white; border-color: #1a1a2e; }
+.page-btn:hover:not(.active) { background: #f0f0f0; }
+
+.meth-section { background: white; border-radius: 12px; padding: 24px; box-shadow: 0 1px 4px rgba(0,0,0,.08); margin-bottom: 20px; }
+.meth-title { font-size: 17px; font-weight: 700; margin-bottom: 16px; color: #1a1a2e; border-bottom: 2px solid #e85d04; padding-bottom: 8px; }
+.formula-box { background: #1a1a2e; color: white; border-radius: 8px; padding: 16px 20px; font-family: 'Courier New', monospace; font-size: 14px; line-height: 1.8; margin: 12px 0; }
+.formula-comment { color: #aaa; font-size: 12px; }
+.source-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.source-table th { background: #f8f9fa; padding: 10px 14px; text-align: left; font-weight: 600; font-size: 12px; color: #555; }
+.source-table td { padding: 10px 14px; border-bottom: 1px solid #f0f0f0; vertical-align: top; }
+.source-tag { display: inline-block; background: #e8f4e8; color: #1a5c1a; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; }
+.vote-item { display: flex; gap: 12px; padding: 8px 0; border-bottom: 1px solid #f0f0f0; align-items: flex-start; }
+.vote-badge { background: #1a1a2e; color: white; padding: 3px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; white-space: nowrap; }
+</style>
+</head>
+<body>
+<nav class="top-nav"><a href="accueil.html" class="nav-brand-link ">🥩 FICT</a><div class="nav-links"><a href="index.html" class="nav-link ">🗺️ Carte</a><a href="parlementaires.html" class="nav-link ">👥 Parlementaires</a><a href="partis.html" class="nav-link ">🏛️ Partis</a><a href="groupes.html" class="nav-link ">🏭 Industriels</a><a href="entreprises.html" class="nav-link ">🏢 Entreprises</a><a href="methodologie.html" class="nav-link active">📖 Méthode</a></div></nav><style>.nav-brand-link{color:white;text-decoration:none;font-weight:700;font-size:16px;white-space:nowrap;padding:4px 8px;border-radius:6px;transition:all .2s}.nav-brand-link:hover,.nav-brand-link.active{background:rgba(255,255,255,.15)}</style>
+<div class="container" style="max-width:900px">
+  <div class="page-title">📖 Méthodologie &amp; Sources</div>
+  <div class="page-subtitle">Comment sont calculés les scores et d'où viennent les données</div>
+
+  <div class="meth-section">
+    <div class="meth-title">📊 Formule du score FICT</div>
+    <p style="font-size:13px;color:#555;margin-bottom:12px">Le score FICT mesure la <strong>priorité de contact</strong> d'un élu pour les affaires publiques FICT : un élu fortement ancré dans une zone de production ET actif sur les dossiers agricoles est prioritaire.</p>
+    <div class="formula-box">
+score_fict = score_eco × (1 + (score_impl + score_engagement) / 10)<br>
+<br>
+<span class="formula-comment"># Score implantation (poids économique de la zone)</span><br>
+score_eco = nb_sites_fict<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ 2 × nb_sites_charcuterie<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ 1 × nb_sites_transformation_viande<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ 0.5 × nb_sites_volaille<br>
+<br>
+<span class="formula-comment"># Score implication parlementaire</span><br>
+score_impl = 3 × membre_commission_agriculture<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ 2 × membre_mission_egalim<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ 1 × membre_commission_economique<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ 0.5 × taux_participation<br>
+<br>
+<span class="formula-comment"># Score engagement (missions et groupes spécifiques FICT)</span><br>
+score_engagement = Σ memberships (0–11 points max)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="formula-comment"># commission_enquete_gd, mission_nitrites, groupe_etude_iaa...</span>
+    </div>
+    <p style="font-size:12px;color:#888;margin-top:8px">Géographie : le score utilise le département (et non la circonscription) comme unité d'analyse — précision sub-départementale non disponible via SIRENE.</p>
+  </div>
+
+  <div class="meth-section">
+    <div class="meth-title">🗳️ Votes nominatifs suivis (7 scrutins)</div>
+    <div class="vote-item"><span class="vote-badge">EGALIM 1</span><div><strong>Loi 2018-938</strong> — Relations commerciales dans le secteur agricole et alimentation</div></div>
+    <div class="vote-item"><span class="vote-badge">EGALIM 2</span><div><strong>Loi 2021-1357</strong> — Protection de la rémunération des agriculteurs</div></div>
+    <div class="vote-item"><span class="vote-badge">EGALIM 3</span><div><strong>Loi 2023-221 / Descrozaille</strong> — Équilibre des relations commerciales entre producteurs et acheteurs</div></div>
+    <div class="vote-item"><span class="vote-badge">LOA 2024</span><div><strong>Loi d'orientation agricole 2024</strong> — Souveraineté agricole et renouvellement des générations</div></div>
+    <div class="vote-item"><span class="vote-badge">PPL Revenu Agri</span><div><strong>2024</strong> — PPL relative au revenu des agriculteurs</div></div>
+    <div class="vote-item"><span class="vote-badge">PPL Marges</span><div><strong>PPL sur les marges agroalimentaires</strong> (rejeté)</div></div>
+    <div class="vote-item" style="border-bottom:none"><span class="vote-badge">PPL Stabilité</span><div><strong>2025 — 17e législature</strong> — PPL renforcer la stabilité économique agroalimentaire (dossier AN 17e)</div></div>
+  </div>
+
+  <div class="meth-section">
+    <div class="meth-title">🎯 Engagements parlementaires suivis (score_engagement)</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:13px">
+      <div style="padding:8px;background:#f8f9fa;border-radius:6px">Commission d'enquête grande distribution</div>
+      <div style="padding:8px;background:#f8f9fa;border-radius:6px">Mission information nitrites</div>
+      <div style="padding:8px;background:#f8f9fa;border-radius:6px">Mission suivi grande distribution</div>
+      <div style="padding:8px;background:#f8f9fa;border-radius:6px">Mission contrôle EGALIM 1</div>
+      <div style="padding:8px;background:#f8f9fa;border-radius:6px">Mission application loi 2022</div>
+      <div style="padding:8px;background:#f8f9fa;border-radius:6px">Groupe d'étude industrie agroalimentaire</div>
+      <div style="padding:8px;background:#f8f9fa;border-radius:6px">Groupe d'étude agriculture</div>
+      <div style="padding:8px;background:#f8f9fa;border-radius:6px">Observatoire des marges</div>
+      <div style="padding:8px;background:#f8f9fa;border-radius:6px">Mission autonomie alimentaire</div>
+    </div>
+  </div>
+
+  <div class="meth-section">
+    <div class="meth-title">📂 Sources de données</div>
+    <table class="source-table">
+      <thead><tr><th>Source</th><th>Données récupérées</th><th>Date collecte</th></tr></thead>
+      <tbody>
+        <tr><td><span class="source-tag">Assemblée Nationale</span><br><small>Open data AN (data.assemblee-nationale.fr)</small></td><td>Identités députés, groupes, scrutins nominatifs, commissions, missions</td><td>Avril 2026</td></tr>
+        <tr><td><span class="source-tag">Sénat</span><br><small>Export SQL + nosdéputés.fr</small></td><td>Identités sénateurs, groupes politiques, commissions</td><td>Avril 2026</td></tr>
+        <tr><td><span class="source-tag">nosdéputés.fr</span><br><small>API Regards Citoyens /synthese/json</small></td><td>Interventions hémicycle, questions écrites/orales, PPL déposées/signées, présence</td><td>Avril 2026</td></tr>
+        <tr><td><span class="source-tag">SIRENE / INSEE</span><br><small>API Recherche Entreprises (api.entreprise.data.gouv.fr)</small></td><td>Établissements actifs codes NAF 10.11Z, 10.12Z, 10.13A, 10.13B — coordonnées, commune, département</td><td>Avril 2026</td></tr>
+        <tr><td><span class="source-tag">INPI / Pappers</span><br><small>API Pappers (pappers.fr)</small></td><td>CA, résultat net, effectifs, dirigeants, forme juridique</td><td>Avril 2026</td></tr>
+        <tr><td><span class="source-tag">FICT</span><br><small>Fichier adhérents par syndicat régional</small></td><td>Liste de référence des ~300 entreprises membres (source de vérité pour le périmètre)</td><td>Fourni par la FICT</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="meth-section">
+    <div class="meth-title">⚠️ Limites à connaître</div>
+    <ul style="font-size:13px;color:#555;line-height:2;padding-left:20px">
+      <li><strong>Niveau département</strong> : le score utilise le département (pas la circonscription) — tous les élus d'un département reçoivent le même score d'implantation.</li>
+      <li><strong>Interventions thématiques</strong> : les interventions hémicycle (nosdéputés.fr) sont globales, pas filtrées sur les thèmes agricoles.</li>
+      <li><strong>Scrutins Sénat</strong> : les votes nominatifs ne sont disponibles que pour les députés (AN). Les sénateurs votent selon des procédures différentes.</li>
+      <li><strong>SIRENE</strong> : délai de mise à jour possible (ouvertures/fermetures récentes peuvent manquer).</li>
+      <li><strong>17e législature en cours</strong> : <code>sort: null</code> sur les amendements = normal pour la session en cours (pas encore finalisés).</li>
+    </ul>
+  </div>
+
+  <div style="background:#1a1a2e;color:rgba(255,255,255,.7);border-radius:12px;padding:20px 24px;text-align:center;font-size:13px">
+    Réalisé par <a href="https://www.linkedin.com/in/julien-vieira-b59673b4/" target="_blank" rel="noopener" style="color:#e85d04;font-weight:600">Julien Vieira</a> — Consultant affaires publiques · Données collectées en avril 2026
+  </div>
+</div>
+</body>
+</html>

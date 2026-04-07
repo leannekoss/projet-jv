@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
 <title>FICT — Parlementaires</title>
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -46,7 +47,7 @@ tr:hover td { background: #fafafa; }
 </style>
 </head>
 <body>
-<nav class="top-nav"><div class="nav-brand">🥩 FICT Lobbying</div><div class="nav-links"><a href="index.html" class="nav-link ">🗺️ Carte</a><a href="parlementaires.html" class="nav-link active">👥 Parlementaires</a><a href="partis.html" class="nav-link ">🏛️ Partis</a><a href="groupes.html" class="nav-link ">🏭 Industriels</a><a href="entreprises.html" class="nav-link ">🏢 Entreprises</a></div></nav>
+<nav class="top-nav"><a href="accueil.html" class="nav-brand-link ">🥩 FICT</a><div class="nav-links"><a href="index.html" class="nav-link ">🗺️ Carte</a><a href="parlementaires.html" class="nav-link active">👥 Parlementaires</a><a href="partis.html" class="nav-link ">🏛️ Partis</a><a href="groupes.html" class="nav-link ">🏭 Industriels</a><a href="entreprises.html" class="nav-link ">🏢 Entreprises</a><a href="methodologie.html" class="nav-link ">📖 Méthode</a></div></nav><style>.nav-brand-link{color:white;text-decoration:none;font-weight:700;font-size:16px;white-space:nowrap;padding:4px 8px;border-radius:6px;transition:all .2s}.nav-brand-link:hover,.nav-brand-link.active{background:rgba(255,255,255,.15)}</style>
 <div class="container">
   <div class="page-title">👥 Parlementaires</div>
   <div class="page-subtitle">925 élus classés par score FICT (implantation × implication)</div>
@@ -63,7 +64,7 @@ tr:hover td { background: #fafafa; }
         <option value="eco">Commission Économique</option>
         <option value="egalim">Mission EGALIM</option>
       </select>
-      <select class="filter-select" id="f-sites" onchange="renderTable()"><option value="">Tous depts</option><option value="1">Avec sites FICT</option></select>
+      <select class="filter-select" id="f-sites" onchange="renderTable()"><option value="">Tous les élus</option><option value="1">Avec sites FICT</option></select>
     </div>
     <div id="result-count" style="font-size:12px;color:#666;margin-bottom:8px"></div>
     <div style="overflow-x:auto">
