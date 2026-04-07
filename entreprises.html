@@ -144,7 +144,7 @@ function paginate(){
       <td><div>${ca}</div><div class="ca-bar"><div class="ca-fill" style="width:${pct}%"></div></div></td>
       <td style="font-size:11px">${e.forme_juridique||'-'}</td>
       <td>${dirs}</td>
-      <td style="font-size:12px">${e.date_creation||'-'}</td>
+      <td style="font-size:12px">${e.date_creation?(e.date_creation.slice(0,4)||'-'):'-'}</td>
     </tr>`;
   }).join('');
   const pag=document.getElementById('pagination');
