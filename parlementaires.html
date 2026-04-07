@@ -77,7 +77,7 @@ tr:hover td { background: #fafafa; }
         <th onclick="sortTable(5)">Score FICT ↕</th>
         <th>Position votes</th>
         <th>Commissions</th>
-        <th onclick="sortTable(4)">EGALIM 1 (20</th><th onclick="sortTable(5)">EGALIM 2 (20</th><th onclick="sortTable(6)">EGALIM 3 / D</th><th onclick="sortTable(7)">LOA 2024</th><th onclick="sortTable(8)">PPL Revenu a</th><th onclick="sortTable(9)">PPL Marges a</th>
+        <th onclick="sortTable(4)">EGALIM 1 (20</th><th onclick="sortTable(5)">EGALIM 2 (20</th><th onclick="sortTable(6)">EGALIM 3 / D</th><th onclick="sortTable(7)">LOA 2024</th><th onclick="sortTable(8)">PPL Revenu a</th><th onclick="sortTable(9)">PPL Marges a</th><th onclick="sortTable(10)">PPL Stabilit</th>
       </tr></thead>
       <tbody id="tbody"></tbody>
     </table>
@@ -86,8 +86,8 @@ tr:hover td { background: #fafafa; }
   </div>
 </div>
 <script>
-const SCRUTIN_IDS = ["egalim1", "egalim2", "egalim3", "loa2024", "revenu_agri", "marges_agroalim"];
-const SCRUTIN_LABELS = {"egalim1": "EGALIM 1 (2018)", "egalim2": "EGALIM 2 (2021)", "egalim3": "EGALIM 3 / Descrozaille (2023)", "loa2024": "LOA 2024", "revenu_agri": "PPL Revenu agri (2024)", "marges_agroalim": "PPL Marges agroalim (rejet\u00e9)"};
+const SCRUTIN_IDS = ["egalim1", "egalim2", "egalim3", "loa2024", "revenu_agri", "marges_agroalim", "stabilite_agro"];
+const SCRUTIN_LABELS = {"egalim1": "EGALIM 1 (2018)", "egalim2": "EGALIM 2 (2021)", "egalim3": "EGALIM 3 / Descrozaille (2023)", "loa2024": "LOA 2024", "revenu_agri": "PPL Revenu agri (2024)", "marges_agroalim": "PPL Marges agroalim (rejet\u00e9)", "stabilite_agro": "PPL Stabilit\u00e9 \u00e9co agroalimentaire (2025)"};
 const VOTE_COLORS = {pour:'#28a745',contre:'#dc3545',abstention:'#fd7e14',absent:'#aaa'};
 const PAGE_SIZE = 50;
 let allData = [], filtered = [], sortCol = 5, sortDir = -1, page = 0;
