@@ -75,9 +75,12 @@ tr:hover td { background: #fafafa; }
         <th onclick="sortTable(3)">Dept ↕</th>
         <th onclick="sortTable(4)">Sites ↕</th>
         <th onclick="sortTable(5)">Score FICT ↕</th>
+        <th onclick="sortTable(6)">Engagement ↕</th>
+        <th onclick="sortTable(7)">Interv. ↕</th>
+        <th onclick="sortTable(8)">PPL ↕</th>
         <th>Position votes</th>
         <th>Commissions</th>
-        <th onclick="sortTable(4)">EGALIM 1 (20</th><th onclick="sortTable(5)">EGALIM 2 (20</th><th onclick="sortTable(6)">EGALIM 3 / D</th><th onclick="sortTable(7)">LOA 2024</th><th onclick="sortTable(8)">PPL Revenu a</th><th onclick="sortTable(9)">PPL Marges a</th><th onclick="sortTable(10)">PPL Stabilit</th>
+        <th onclick="sortTable(11)">EGALIM 1 (20</th><th onclick="sortTable(12)">EGALIM 2 (20</th><th onclick="sortTable(13)">EGALIM 3 / D</th><th onclick="sortTable(14)">LOA 2024</th><th onclick="sortTable(15)">PPL Revenu a</th><th onclick="sortTable(16)">PPL Marges a</th><th onclick="sortTable(17)">PPL Stabilit</th>
       </tr></thead>
       <tbody id="tbody"></tbody>
     </table>
@@ -150,7 +153,10 @@ function sortKey(p, col) {
     case 3: return p.dept;
     case 4: return p.nb_sites;
     case 5: return p.score;
-    default: return (p.votes||{})[SCRUTIN_IDS[col-6]]||'';
+    case 6: return p.score_engagement||0;
+    case 7: return p.hemicycle_interventions||0;
+    case 8: return p.propositions_ecrites||0;
+    default: return (p.votes||{})[SCRUTIN_IDS[col-11]]||'';
   }
 }
 
@@ -178,6 +184,9 @@ function renderTable() {
       <td><span title="${p.nom_dept}">${p.dept}</span></td>
       <td style="text-align:center">${p.nb_sites>0?`<b>${p.nb_sites}</b>`:0}</td>
       <td style="${scoreStyle}">${p.score.toFixed(1)}</td>
+      <td style="text-align:center">${p.score_engagement>0?`<b style="color:#1a1a2e">${p.score_engagement}</b>`:'—'}</td>
+      <td style="text-align:center">${p.hemicycle_interventions>0?p.hemicycle_interventions:'—'}</td>
+      <td style="text-align:center">${p.propositions_ecrites>0?p.propositions_ecrites:'—'}</td>
       <td style="font-size:11px;white-space:nowrap">${p.position||''}</td>
       <td>${badges}</td>
       ${votesCells}

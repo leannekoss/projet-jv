@@ -120,13 +120,22 @@ fetch('data/parlementaires.json').then(r=>r.json()).then(data => {
     <div class="grid-2">
       <div class="card">
         <div class="section-title">📊 Scores FICT</div>
-        <div style="font-size:13px;color:#666;margin-bottom:4px">Score global</div>
+        <div style="font-size:13px;color:#666;margin-bottom:4px">Score global (implantation × implication)</div>
         <div style="font-size:32px;font-weight:700;color:#e85d04">${p.score.toFixed(1)}</div>
         <div class="score-bar"><div class="score-bar-fill" style="width:${scoreWidth}%"></div></div>
-        <div style="margin-top:12px;display:flex;gap:12px">
-          <div><div style="font-size:20px;font-weight:700">${p.score_eco.toFixed(1)}</div><div style="font-size:11px;color:#888">Score implantation</div></div>
-          <div><div style="font-size:20px;font-weight:700">${p.score_impl.toFixed(1)}</div><div style="font-size:11px;color:#888">Score implication</div></div>
-          ${p.chambre==='AN'?`<div><div style="font-size:20px;font-weight:700">${p.participation.toFixed(0)}%</div><div style="font-size:11px;color:#888">Participation</div></div>`:''}
+        <div style="margin-top:12px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px">
+          <div style="text-align:center;background:#f8f9fa;border-radius:6px;padding:8px">
+            <div style="font-size:18px;font-weight:700">${p.score_eco.toFixed(1)}</div>
+            <div style="font-size:10px;color:#888">Implantation</div>
+          </div>
+          <div style="text-align:center;background:#f8f9fa;border-radius:6px;padding:8px">
+            <div style="font-size:18px;font-weight:700">${p.score_impl.toFixed(1)}</div>
+            <div style="font-size:10px;color:#888">Implication</div>
+          </div>
+          <div style="text-align:center;background:#f8f9fa;border-radius:6px;padding:8px">
+            <div style="font-size:18px;font-weight:700;color:${p.score_engagement>0?'#1a1a2e':'#ccc'}">${p.score_engagement}</div>
+            <div style="font-size:10px;color:#888">Engagement</div>
+          </div>
         </div>
       </div>
 
@@ -139,6 +148,45 @@ fetch('data/parlementaires.json').then(r=>r.json()).then(data => {
         ${p.twitter ? `<div style="margin-top:4px"><a href="https://twitter.com/${p.twitter.replace('@','')}" target="_blank" style="color:#1d9bf0;font-size:13px">🐦 @${p.twitter.replace('@','')}</a></div>` : ''}
       </div>
     </div>
+
+    ${p.chambre === 'AN' ? `
+    <div class="card" style="margin-bottom:16px">
+      <div class="section-title">📢 Activité parlementaire (17e législature)</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px;margin-top:8px">
+        <div style="text-align:center;background:#f8f9fa;border-radius:8px;padding:12px">
+          <div style="font-size:24px;font-weight:700;color:#1a1a2e">${p.hemicycle_interventions||'—'}</div>
+          <div style="font-size:11px;color:#888;margin-top:3px">Interventions hémicycle</div>
+        </div>
+        <div style="text-align:center;background:#f8f9fa;border-radius:8px;padding:12px">
+          <div style="font-size:24px;font-weight:700;color:#1a1a2e">${p.questions_orales||'—'}</div>
+          <div style="font-size:11px;color:#888;margin-top:3px">Questions orales</div>
+        </div>
+        <div style="text-align:center;background:#f8f9fa;border-radius:8px;padding:12px">
+          <div style="font-size:24px;font-weight:700;color:#1a1a2e">${p.questions_ecrites||'—'}</div>
+          <div style="font-size:11px;color:#888;margin-top:3px">Questions écrites</div>
+        </div>
+        <div style="text-align:center;background:#f8f9fa;border-radius:8px;padding:12px">
+          <div style="font-size:24px;font-weight:700;color:#1a1a2e">${p.propositions_ecrites||'—'}</div>
+          <div style="font-size:11px;color:#888;margin-top:3px">PPL déposées</div>
+        </div>
+        <div style="text-align:center;background:#f8f9fa;border-radius:8px;padding:12px">
+          <div style="font-size:24px;font-weight:700;color:#1a1a2e">${p.propositions_signees||'—'}</div>
+          <div style="font-size:11px;color:#888;margin-top:3px">PPL co-signées</div>
+        </div>
+        <div style="text-align:center;background:#f8f9fa;border-radius:8px;padding:12px">
+          <div style="font-size:24px;font-weight:700;color:#1a1a2e">${p.nb_amendements_deposes||'—'}</div>
+          <div style="font-size:11px;color:#888;margin-top:3px">Amdt agroalim.</div>
+        </div>
+        <div style="text-align:center;background:#f8f9fa;border-radius:8px;padding:12px">
+          <div style="font-size:24px;font-weight:700;color:#1a1a2e">${p.nb_amendements_cosignes||'—'}</div>
+          <div style="font-size:11px;color:#888;margin-top:3px">Amdt co-signés</div>
+        </div>
+        <div style="text-align:center;background:#f8f9fa;border-radius:8px;padding:12px">
+          <div style="font-size:24px;font-weight:700;color:#1a1a2e">${p.semaines_presence||'—'}</div>
+          <div style="font-size:11px;color:#888;margin-top:3px">Semaines présence</div>
+        </div>
+      </div>
+    </div>` : ''}
 
     <div class="grid-2">
       <div class="card">
