@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>FICT — Veille parlementaire</title>
+<style>
+/* ─── Reset & base ─── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica Neue, sans-serif;
+  background: #f5f5f7;
+  color: #1d1d1f;
+  line-height: 1.6;
+}
+
+/* ─── Navigation ─── */
+.top-nav {
+  background: #1a1a2e;
+  color: white;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  height: 52px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+  flex-wrap: wrap;
+}
+.nav-brand {
+  font-weight: 700;
+  font-size: 15px;
+  white-space: nowrap;
+  letter-spacing: -0.3px;
+}
+.nav-links {
+  display: flex;
+  gap: 2px;
+  flex-wrap: wrap;
+}
+.nav-link {
+  color: rgba(255,255,255,0.72);
+  text-decoration: none;
+  padding: 6px 11px;
+  border-radius: 6px;
+  font-size: 13px;
+  transition: background .15s, color .15s;
+  white-space: nowrap;
+}
+.nav-link:hover { background: rgba(255,255,255,0.12); color: white; }
+.nav-link.active { background: rgba(232,83,42,0.85); color: white; font-weight: 600; }
+
+/* ─── Layout ─── */
+.container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+
+/* ─── Hero ─── */
+.hero {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 55%, #0f3460 100%);
+  color: white;
+  padding: 72px 20px 64px;
+  text-align: center;
+}
+.hero-label {
+  display: inline-block;
+  background: rgba(232,83,42,0.25);
+  border: 1px solid rgba(232,83,42,0.5);
+  color: #f0896b;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 4px 12px;
+  border-radius: 20px;
+  margin-bottom: 20px;
+}
+.hero h1 {
+  font-size: clamp(26px, 5vw, 42px);
+  font-weight: 800;
+  letter-spacing: -0.8px;
+  margin-bottom: 16px;
+  line-height: 1.2;
+}
+.hero h1 span { color: #e8532a; }
+.hero-subtitle {
+  font-size: clamp(14px, 2.2vw, 17px);
+  color: rgba(255,255,255,0.72);
+  max-width: 660px;
+  margin: 0 auto 32px;
+}
+.btn-primary {
+  display: inline-block;
+  background: #e8532a;
+  color: white;
+  text-decoration: none;
+  padding: 13px 28px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  transition: background .2s, transform .15s;
+  border: none;
+  cursor: pointer;
+}
+.btn-primary:hover { background: #cf4520; transform: translateY(-1px); }
+
+/* ─── Stats band ─── */
+.stats-band {
+  background: white;
+  border-bottom: 1px solid #e8e8ed;
+  padding: 28px 20px;
+}
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 0;
+}
+.stat-item {
+  text-align: center;
+  padding: 8px 24px;
+  border-right: 1px solid #e8e8ed;
+}
+.stat-item:last-child { border-right: none; }
+.stat-value {
+  font-size: 36px;
+  font-weight: 800;
+  color: #1a1a2e;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.stat-value span { color: #e8532a; }
+.stat-label {
+  font-size: 13px;
+  color: #666;
+  line-height: 1.4;
+}
+
+/* ─── Sections ─── */
+section { padding: 64px 20px; }
+section:nth-child(even) { background: white; }
+
+.section-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #e8532a;
+  margin-bottom: 10px;
+}
+.section-title {
+  font-size: clamp(20px, 3.5vw, 28px);
+  font-weight: 700;
+  color: #1a1a2e;
+  margin-bottom: 10px;
+  letter-spacing: -0.4px;
+}
+.section-desc {
+  font-size: 15px;
+  color: #555;
+  max-width: 600px;
+  margin-bottom: 36px;
+}
+
+/* ─── Benefit cards ─── */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+.card {
+  background: white;
+  border-radius: 12px;
+  padding: 28px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.07), 0 4px 16px rgba(0,0,0,0.04);
+  border: 1px solid #ebebef;
+  transition: transform .2s, box-shadow .2s;
+}
+.card:hover { transform: translateY(-2px); box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
+.card-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: #1a1a2e;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+.card-icon svg { width: 22px; height: 22px; fill: white; }
+.card h3 {
+  font-size: 17px;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin-bottom: 10px;
+}
+.card p { font-size: 14px; color: #555; line-height: 1.6; }
+.card-accent { border-top: 3px solid #e8532a; }
+
+/* ─── Use case encart ─── */
+.usecase-box {
+  background: linear-gradient(135deg, #1a1a2e 0%, #0f3460 100%);
+  color: white;
+  border-radius: 14px;
+  padding: 36px 40px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  align-items: center;
+}
+@media (max-width: 700px) {
+  .usecase-box { grid-template-columns: 1fr; padding: 28px 24px; }
+}
+.usecase-tag {
+  display: inline-block;
+  background: rgba(232,83,42,0.3);
+  border: 1px solid rgba(232,83,42,0.5);
+  color: #f0896b;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 4px;
+  margin-bottom: 14px;
+}
+.usecase-box h3 {
+  font-size: 19px;
+  font-weight: 700;
+  margin-bottom: 14px;
+  line-height: 1.3;
+}
+.usecase-box p { font-size: 14px; color: rgba(255,255,255,0.78); line-height: 1.65; }
+.usecase-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px; }
+.pill {
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.18);
+  color: rgba(255,255,255,0.9);
+  font-size: 12px;
+  padding: 4px 10px;
+  border-radius: 20px;
+}
+.usecase-metrics { display: flex; flex-direction: column; gap: 14px; }
+.metric-row {
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 8px;
+  padding: 12px 16px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+.metric-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-top: 4px;
+  flex-shrink: 0;
+}
+.dot-green { background: #34d399; }
+.dot-orange { background: #e8532a; }
+.dot-blue { background: #60a5fa; }
+.dot-yellow { background: #fbbf24; }
+.metric-row p { font-size: 13px; color: rgba(255,255,255,0.82); line-height: 1.5; }
+.metric-row strong { color: white; }
+
+/* ─── Méthodologie ─── */
+.methodo-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+  align-items: start;
+}
+@media (max-width: 700px) { .methodo-grid { grid-template-columns: 1fr; } }
+.formula-box {
+  background: #1a1a2e;
+  color: white;
+  border-radius: 10px;
+  padding: 24px;
+  font-family: 'Menlo', 'Courier New', monospace;
+  font-size: 13px;
+  line-height: 1.8;
+}
+.formula-box .comment { color: rgba(255,255,255,0.4); }
+.formula-box .var { color: #60a5fa; }
+.formula-box .op { color: #e8532a; }
+.formula-box .val { color: #34d399; }
+.methodo-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+.methodo-list li {
+  display: flex;
+  gap: 12px;
+  font-size: 14px;
+  color: #444;
+  line-height: 1.55;
+}
+.methodo-list li::before {
+  content: '';
+  display: block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #e8532a;
+  margin-top: 7px;
+  flex-shrink: 0;
+}
+abbr {
+  cursor: help;
+  text-decoration: underline dotted #999;
+  text-underline-offset: 3px;
+}
+.scoring-table { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 16px; }
+.scoring-table th {
+  text-align: left;
+  padding: 8px 12px;
+  background: #f0f0f5;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #555;
+  border-bottom: 2px solid #e0e0e8;
+}
+.scoring-table td {
+  padding: 8px 12px;
+  border-bottom: 1px solid #f0f0f5;
+  color: #333;
+}
+.scoring-table tr:last-child td { border-bottom: none; }
+.score-badge {
+  display: inline-block;
+  background: #1a1a2e;
+  color: white;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+/* ─── Sources block ─── */
+.sources-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+}
+.source-card {
+  background: white;
+  border: 1px solid #e0e0e8;
+  border-radius: 10px;
+  padding: 20px;
+  transition: border-color .2s;
+}
+.source-card:hover { border-color: #1a1a2e; }
+.source-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin-bottom: 8px;
+}
+.source-name span {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #e8532a;
+  margin-right: 8px;
+}
+.source-desc { font-size: 12px; color: #666; line-height: 1.55; }
+
+/* ─── Contact ─── */
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 48px;
+  align-items: start;
+}
+@media (max-width: 700px) { .contact-grid { grid-template-columns: 1fr; gap: 32px; } }
+.contact-info h3 { font-size: 18px; font-weight: 700; margin-bottom: 12px; color: #1a1a2e; }
+.contact-info p { font-size: 14px; color: #555; line-height: 1.65; margin-bottom: 16px; }
+.contact-badge {
+  display: inline-block;
+  background: #fff3cd;
+  border: 1px solid #ffc107;
+  color: #856404;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 6px;
+}
+.form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+@media (max-width: 480px) { .form-row { grid-template-columns: 1fr; } }
+label { font-size: 13px; font-weight: 600; color: #333; }
+input[type=text], input[type=email], textarea {
+  border: 1px solid #d0d0d8;
+  border-radius: 7px;
+  padding: 10px 13px;
+  font-size: 14px;
+  font-family: inherit;
+  width: 100%;
+  transition: border-color .2s, box-shadow .2s;
+  background: white;
+  color: #1d1d1f;
+}
+input:focus, textarea:focus {
+  outline: none;
+  border-color: #1a1a2e;
+  box-shadow: 0 0 0 3px rgba(26,26,46,0.1);
+}
+textarea { resize: vertical; min-height: 90px; }
+.btn-submit {
+  background: #1a1a2e;
+  color: white;
+  border: none;
+  border-radius: 7px;
+  padding: 12px 24px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background .2s;
+  font-family: inherit;
+}
+.btn-submit:hover { background: #e8532a; }
+.confidential-note {
+  font-size: 12px;
+  color: #999;
+  margin-top: 14px;
+  font-style: italic;
+}
+
+/* ─── Footer ─── */
+footer {
+  background: #1a1a2e;
+  color: rgba(255,255,255,0.6);
+  padding: 28px 20px;
+  text-align: center;
+  font-size: 13px;
+  line-height: 1.8;
+}
+footer strong { color: rgba(255,255,255,0.9); }
+.footer-sep { margin: 0 10px; opacity: 0.4; }
+
+/* ─── Responsive nav ─── */
+@media (max-width: 860px) {
+  .top-nav { height: auto; padding: 10px 16px; gap: 8px; }
+  .nav-links { gap: 2px; }
+  .nav-link { padding: 5px 8px; font-size: 12px; }
+}
+@media (max-width: 560px) {
+  .stat-item { border-right: none; border-bottom: 1px solid #e8e8ed; padding: 14px 12px; }
+  .stat-item:last-child { border-bottom: none; }
+  .stats-grid { grid-template-columns: 1fr 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- ─── Navigation ─── -->
+<nav class="top-nav">
+  <div class="nav-brand">FICT Lobbying</div>
+  <div class="nav-links">
+    <a href="index_accueil.html" class="nav-link active">Accueil</a>
+    <a href="index.html" class="nav-link">Carte</a>
+    <a href="parlementaires.html" class="nav-link">Elus</a>
+    <a href="partis.html" class="nav-link">Partis</a>
+    <a href="groupes.html" class="nav-link">Industriels</a>
+    <a href="entreprises.html" class="nav-link">Entreprises</a>
+    <a href="#methodologie" class="nav-link">Methodologie</a>
+    <a href="#contact" class="nav-link">Contact</a>
+  </div>
+</nav>
+
+<!-- ─── Hero ─── -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-label">Outil de veille interne - Usage confidentiel</div>
+    <h1>Veille parlementaire <span>FICT</span></h1>
+    <p class="hero-subtitle">
+      Anticipez les evolutions legislatives et cartographiez l'influence des elus
+      sur la filiere charcuterie et traiteur.
+    </p>
+    <a href="#contact" class="btn-primary">Demander une demonstration</a>
+  </div>
+</section>
+
+<!-- ─── Stats band ─── -->
+<div class="stats-band">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-item">
+        <div class="stat-value">925</div>
+        <div class="stat-label">parlementaires analyses</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-value">212</div>
+        <div class="stat-label">sites de production cartographies</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-value">7</div>
+        <div class="stat-label">textes de loi suivis
+          <br><small style="font-size:11px;color:#aaa">EGALIM 1/2/3 · LOA 2024 · PPL Revenu agri · PPL Marges · PPL Stabilite eco agro</small>
+        </div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-value">594</div>
+        <div class="stat-label">elus actifs sur les textes agro</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── Benefices ─── -->
+<section style="background:#f5f5f7; padding:64px 20px;">
+  <div class="container">
+    <div class="section-label">Pourquoi cet outil</div>
+    <h2 class="section-title">Trois leviers pour piloter votre strategie d'influence</h2>
+    <p class="section-desc">
+      Chaque action de lobbying a un cout. L'outil permet de concentrer les ressources
+      sur les interlocuteurs qui comptent vraiment.
+    </p>
+    <div class="cards-grid">
+
+      <div class="card card-accent">
+        <div class="card-icon" style="background:#1a1a2e;">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
+          </svg>
+        </div>
+        <h3>Identifiez vos allies</h3>
+        <p>
+          Savoir quels elus votent pro-filiere, siegent dans les bonnes commissions
+          et representent des circonscriptions avec une forte implantation industrielle.
+          Le score <abbr title="Score composite : implantation industrielle × implication parlementaire">FICT</abbr>
+          classe les 925 parlementaires en un coup d'oeil.
+        </p>
+      </div>
+
+      <div class="card card-accent">
+        <div class="card-icon" style="background:#1a1a2e;">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/>
+          </svg>
+        </div>
+        <h3>Anticipez les risques reglementaires</h3>
+        <p>
+          Detectez les initiatives legislatives defavorables avant leur adoption.
+          Suivi en temps reel de 7 textes cles : <abbr title="Loi pour l'equilibre des relations commerciales dans le secteur agricole et alimentaire (2018, 2021, 2023)">EGALIM</abbr> 1/2/3,
+          <abbr title="Loi d'orientation agricole">LOA</abbr> 2024, et propositions de loi en discussion.
+        </p>
+      </div>
+
+      <div class="card card-accent">
+        <div class="card-icon" style="background:#1a1a2e;">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
+          </svg>
+        </div>
+        <h3>Priorisez vos actions de lobbying</h3>
+        <p>
+          Le score <abbr title="Fédération des Industries Charcutières, Traiteurs et Transformateurs">FICT</abbr>
+          combine implantation economique dans le departement et implication dans les organes
+          parlementaires pertinents. Concentrez vos ressources sur les interlocuteurs a fort impact.
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─── Cas d'usage ─── -->
+<section style="background:white; padding:64px 20px;">
+  <div class="container">
+    <div class="section-label">Exemple concret</div>
+    <h2 class="section-title">Comment l'outil travaille pour vous</h2>
+    <p class="section-desc">
+      Illustre avec la proposition de loi la plus recente suivie par la <abbr title="Fédération des Industries Charcutières, Traiteurs et Transformateurs">FICT</abbr>.
+    </p>
+    <div class="usecase-box">
+      <div>
+        <div class="usecase-tag">Cas d'usage</div>
+        <h3>PPL Stabilite economique agroalimentaire<br><span style="font-weight:400;font-size:16px;opacity:0.8;">Avril 2025</span></h3>
+        <p>
+          Cette proposition de loi visait a renforcer la stabilite des relations contractuelles
+          dans la filiere agro. L'outil permet, en quelques clics, d'identifier les votes,
+          les positions par groupe politique, les elus membres de la mission nitrites,
+          et ceux dont le departement concentre des unites de production FICT.
+        </p>
+        <div class="usecase-pills">
+          <span class="pill">577 deputes analyses</span>
+          <span class="pill">348 senateurs analyses</span>
+          <span class="pill">Mission nitrites</span>
+          <span class="pill">Commission agri</span>
+          <span class="pill">Score FICT par elu</span>
+        </div>
+      </div>
+      <div class="usecase-metrics">
+        <div class="metric-row">
+          <div class="metric-dot dot-green"></div>
+          <p><strong>Qui a vote pour ?</strong><br>Votes nominatifs croises avec l'appartenance aux commissions Agriculture et Economique.</p>
+        </div>
+        <div class="metric-row">
+          <div class="metric-dot dot-orange"></div>
+          <p><strong>Mission nitrites</strong><br>Membres identifies et ponderes x5 dans le score — interlocuteurs prioritaires sur la question des additifs.</p>
+        </div>
+        <div class="metric-row">
+          <div class="metric-dot dot-blue"></div>
+          <p><strong>Zones d'implantation</strong><br>Elus representant un departement avec au moins un site de production <abbr title="Fédération des Industries Charcutières, Traiteurs et Transformateurs">FICT</abbr> cartographie.</p>
+        </div>
+        <div class="metric-row">
+          <div class="metric-dot dot-yellow"></div>
+          <p><strong>Alerte sur les abstentions</strong><br>Elus "convertibles" : abstentions sur EGALIM 3 mais presents dans les circonscriptions cles.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── Methodologie ─── -->
+<section id="methodologie" style="background:#f5f5f7; padding:64px 20px;">
+  <div class="container">
+    <div class="section-label">Methodologie</div>
+    <h2 class="section-title">Comment le score <abbr title="Fédération des Industries Charcutières, Traiteurs et Transformateurs">FICT</abbr> est construit</h2>
+    <p class="section-desc" style="margin-bottom:40px;">
+      Un score composite qui pondere l'implantation economique locale et l'implication
+      parlementaire dans les organes pertinents pour la filiere.
+    </p>
+
+    <div class="methodo-grid">
+      <div>
+        <div class="formula-box">
+          <span class="comment"># Formule principale</span><br>
+          <span class="var">score_fict</span> <span class="op">=</span> <span class="var">score_eco</span>
+          <span class="op">×</span> (<span class="val">1</span> <span class="op">+</span> <span class="var">score_engagement</span> <span class="op">/</span> <span class="val">10</span>)<br>
+          <br>
+          <span class="comment"># score_eco : poids du tissu industriel</span><br>
+          <span class="var">score_eco</span> <span class="op">=</span><br>
+          &nbsp;&nbsp;<span class="var">nb_sites_charcuterie</span> <span class="op">×</span> <span class="val">2</span><br>
+          &nbsp;&nbsp;<span class="op">+</span> <span class="var">nb_autres_sites_FICT</span> <span class="op">×</span> <span class="val">1</span><br>
+          <br>
+          <span class="comment"># score_engagement : organes parlementaires</span><br>
+          <span class="var">mission_nitrites</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="op">×</span> <span class="val">5</span><br>
+          <span class="var">commission_enquete_GD</span> &nbsp;<span class="op">×</span> <span class="val">4</span><br>
+          <span class="var">commission_agri</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="op">×</span> <span class="val">3</span><br>
+          <span class="var">commission_eco</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="op">×</span> <span class="val">2</span><br>
+          <span class="var">mission_egalim</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="op">×</span> <span class="val">2</span>
+        </div>
+      </div>
+
+      <div>
+        <p style="font-size:14px;color:#444;margin-bottom:20px;">
+          Le score est calcule pour chaque parlementaire
+          (577 deputes <abbr title="Assemblée nationale">AN</abbr> + 348 senateurs) sur la base des donnees publiques
+          <abbr title="Systeme national d'identification du repertoire des entreprises et de leurs etablissements">SIRENE</abbr>,
+          croisees avec les organes parlementaires
+          <abbr title="Assemblée nationale">AN</abbr> et Senat.
+        </p>
+
+        <table class="scoring-table">
+          <thead>
+            <tr>
+              <th>Organe parlementaire</th>
+              <th>Poids</th>
+              <th>Justification</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Mission nitrites</td>
+              <td><span class="score-badge">x5</span></td>
+              <td>Impact direct additifs charcuterie</td>
+            </tr>
+            <tr>
+              <td>Commission d'enquete grande distribution</td>
+              <td><span class="score-badge">x4</span></td>
+              <td>Relations fournisseurs / marges</td>
+            </tr>
+            <tr>
+              <td>Commission Agriculture</td>
+              <td><span class="score-badge">x3</span></td>
+              <td>Legislatif filiere agro</td>
+            </tr>
+            <tr>
+              <td>Commission Economique</td>
+              <td><span class="score-badge">x2</span></td>
+              <td>Competitivite, fiscalite</td>
+            </tr>
+            <tr>
+              <td>Mission <abbr title="Loi pour l'equilibre des relations commerciales dans le secteur agricole et alimentaire">EGALIM</abbr></td>
+              <td><span class="score-badge">x2</span></td>
+              <td>Negociations commerciales</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div style="margin-top:24px;">
+          <p style="font-size:13px;font-weight:700;color:#1a1a2e;margin-bottom:12px;">Sources de donnees</p>
+          <ul class="methodo-list">
+            <li><abbr title="Institut national de la propriété industrielle / Institut national de la statistique et des études économiques">INPI</abbr> / <abbr title="Institut national de la statistique et des études économiques">INSEE</abbr>
+            via <abbr title="Systeme national d'identification du repertoire des entreprises et de leurs etablissements">SIRENE</abbr>
+            — geolocalisation des etablissements industriels</li>
+            <li><abbr title="Assemblée nationale">AN</abbr> open data — votes nominatifs, amendements, organes parlementaires</li>
+            <li>Senat open data — commissions, groupes politiques senateurs</li>
+            <li>API gouvernement — donnees consolidees data.gouv.fr</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── Sources ─── -->
+<section style="background:white; padding:64px 20px;">
+  <div class="container">
+    <div class="section-label">Donnees ouvertes</div>
+    <h2 class="section-title">Toutes les sources sont publiques</h2>
+    <p class="section-desc" style="margin-bottom:32px;">
+      L'outil repose exclusivement sur des donnees officielles en open data,
+      sans recours a des bases proprietaires payantes.
+    </p>
+    <div class="sources-grid">
+      <div class="source-card">
+        <div class="source-name"><span></span>Assemblee nationale</div>
+        <div class="source-desc">Votes nominatifs, amendements, composition des organes parlementaires. API open data <abbr title="Assemblée nationale">AN</abbr>.</div>
+      </div>
+      <div class="source-card">
+        <div class="source-name"><span></span>Senat</div>
+        <div class="source-desc">Donnees senateurs, commissions permanentes, groupes politiques. Portail open data Senat.</div>
+      </div>
+      <div class="source-card">
+        <div class="source-name"><span></span>INPI / INSEE (SIRENE)</div>
+        <div class="source-desc">Geolocalisation et codes <abbr title="Nomenclature des activites francaises">NAF</abbr> des etablissements industriels — filtrage sur codes charcuterie et viande.</div>
+      </div>
+      <div class="source-card">
+        <div class="source-name"><span></span>data.gouv.fr</div>
+        <div class="source-desc">Donnees ouvertes consolidees de l'Etat — decoupages administratifs, codes communes et departements.</div>
+      </div>
+      <div class="source-card">
+        <div class="source-name"><span></span>Pappers</div>
+        <div class="source-desc">Informations legales complementaires et dirigeants d'entreprises pour qualification des groupes industriels.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── Contact ─── -->
+<section id="contact" style="background:#f5f5f7; padding:64px 20px;">
+  <div class="container">
+    <div class="section-label">Contact</div>
+    <h2 class="section-title">Demander une demonstration</h2>
+    <div class="contact-grid">
+      <div class="contact-info">
+        <h3>Un outil sur mesure pour la filiere</h3>
+        <p>
+          Cet outil a ete concu pour repondre aux besoins operationnels
+          des equipes affaires publiques et relations institutionnelles
+          de la <abbr title="Fédération des Industries Charcutières, Traiteurs et Transformateurs">FICT</abbr>.
+        </p>
+        <p>
+          Pour une presentation approfondie — methodologie, perimetre des donnees,
+          evolutions prevues — prenez contact via le formulaire.
+        </p>
+        <div class="contact-badge">Usage interne confidentiel</div>
+        <p style="margin-top:20px;font-size:13px;color:#888;">
+          Projet realise pour <strong style="color:#555;">Julien Vieira</strong>
+          — toutes les donnees utilisees sont publiques et en open data.
+        </p>
+      </div>
+
+      <div>
+        <form onsubmit="return false;" style="background:white;border:1px solid #e0e0e8;border-radius:12px;padding:28px;">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="f-nom">Nom</label>
+              <input type="text" id="f-nom" name="nom" placeholder="Dupont">
+            </div>
+            <div class="form-group">
+              <label for="f-prenom">Prenom</label>
+              <input type="text" id="f-prenom" name="prenom" placeholder="Marie">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="f-org">Organisation</label>
+            <input type="text" id="f-org" name="organisation" placeholder="FICT, federation, entreprise...">
+          </div>
+          <div class="form-group">
+            <label for="f-email">Email</label>
+            <input type="email" id="f-email" name="email" placeholder="contact@exemple.fr">
+          </div>
+          <div class="form-group">
+            <label for="f-message">Message</label>
+            <textarea id="f-message" name="message" placeholder="Decrivez votre besoin, votre perimetre d'action, vos questions..."></textarea>
+          </div>
+          <button type="submit" class="btn-submit">Envoyer la demande</button>
+          <p class="confidential-note">Formulaire a titre indicatif — pas de traitement automatique.</p>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── Footer ─── -->
+<footer>
+  <div class="container">
+    <div>
+      <strong>FICT — Veille parlementaire</strong>
+      <span class="footer-sep">|</span>
+      Donnees mises a jour le <strong>7 avril 2026</strong>
+    </div>
+    <div style="margin-top:6px;">
+      Donnees publiques — usage interne confidentiel
+      <span class="footer-sep">|</span>
+      Réalisé par <a href="https://www.linkedin.com/in/julien-vieira-b59673b4/" target="_blank" rel="noopener" style="color:rgba(255,255,255,0.75);text-decoration:underline;">Julien Vieira</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
