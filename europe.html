@@ -84,25 +84,25 @@ tr.row-against { background:rgba(220,53,69,.04); }
 
 <div class="stats-grid" style="grid-template-columns:repeat(auto-fit,minmax(150px,1fr));margin-bottom:20px">
   <div class="stat-card"><div class="stat-value" id="n-total">-</div><div class="stat-label">eurodéputés FR analysés</div></div>
-  <div class="stat-card" style="border-top:3px solid #198754"><div class="stat-value" style="color:#198754" id="n-ally">-</div><div class="stat-label">🟢 à cibler en priorité</div></div>
-  <div class="stat-card" style="border-top:3px solid #fd7e14"><div class="stat-value" style="color:#fd7e14" id="n-watch">-</div><div class="stat-label">🟡 à surveiller</div></div>
-  <div class="stat-card" style="border-top:3px solid #dc3545"><div class="stat-value" style="color:#dc3545" id="n-against">-</div><div class="stat-label">🔴 adversaires probables</div></div>
+  <div class="stat-card" style="border-top:3px solid #198754"><div class="stat-value" style="color:#198754" id="n-ally">-</div><div class="stat-label">🟢 réceptifs à nos positions</div></div>
+  <div class="stat-card" style="border-top:3px solid #fd7e14"><div class="stat-value" style="color:#fd7e14" id="n-watch">-</div><div class="stat-label">🟡 à convaincre</div></div>
+  <div class="stat-card" style="border-top:3px solid #dc3545"><div class="stat-value" style="color:#dc3545" id="n-against">-</div><div class="stat-label">🔴 positionnement défavorable</div></div>
 </div>
 
 <div class="legend-grid">
   <div class="legend-card ally">
-    <div class="legend-title">🟢 À cibler en priorité</div>
+    <div class="legend-title">🟢 Réceptifs à nos positions</div>
     <div class="legend-desc">Groupes historiquement <strong>opposés à la surréglementation alimentaire</strong>. Ont voté contre la résolution Farm to Fork (2021). Potentiellement réceptifs aux arguments FICT sur les nitrites.</div>
     <div class="legend-groups">EPP · ECR · Patriotes pour l'Europe · ESN</div>
   </div>
   <div class="legend-card watch">
-    <div class="legend-title">🟡 À surveiller au cas par cas</div>
+    <div class="legend-title">🟡 À convaincre au cas par cas</div>
     <div class="legend-desc">Groupes aux positions <strong>divisées ou pragmatiques</strong> sur la réglementation alimentaire. Certains membres sont sensibles aux arguments économiques (emploi, filière).</div>
     <div class="legend-groups">Renew Europe · Non inscrits</div>
   </div>
   <div class="legend-card against">
-    <div class="legend-title">🔴 Adversaires probables</div>
-    <div class="legend-desc">Groupes <strong>favorables à la restriction des additifs</strong> et à la stratégie Farm to Fork. Ont voté pour des réglementations plus strictes. Convaincre = peine perdue sauf cas exceptionnel.</div>
+    <div class="legend-title">🔴 Positionnement défavorable</div>
+    <div class="legend-desc">Groupes <strong>favorables à la restriction des additifs</strong> et à la stratégie Farm to Fork. Ont voté pour des réglementations plus strictes. Mobilisation difficile sauf cas exceptionnel.</div>
     <div class="legend-groups">Verts/ALE · S&D · Gauche GUE/NGL</div>
   </div>
 </div>
@@ -116,9 +116,9 @@ tr.row-against { background:rgba(220,53,69,.04); }
   <div class="filter-row">
     <select id="filter-posture" class="filter-select">
       <option value="">Toutes postures</option>
-      <option value="ally">🟢 À cibler</option>
-      <option value="watch">🟡 À surveiller</option>
-      <option value="against">🔴 Adversaires</option>
+      <option value="ally">🟢 Réceptifs</option>
+      <option value="watch">🟡 À convaincre</option>
+      <option value="against">🔴 Défavorables</option>
     </select>
     <select id="filter-groupe" class="filter-select"><option value="">Tous les groupes</option></select>
     <select id="filter-actifs" class="filter-select">
@@ -170,9 +170,9 @@ const POSTURE_MAP = {
 };
 
 const POSTURE_LABELS = {
-  ally:    '<span class="posture-ally">🟢 À cibler</span>',
-  watch:   '<span class="posture-watch">🟡 Surveiller</span>',
-  against: '<span class="posture-against">🔴 Adversaire</span>',
+  ally:    '<span class="posture-ally">🟢 Réceptif</span>',
+  watch:   '<span class="posture-watch">🟡 À convaincre</span>',
+  against: '<span class="posture-against">🔴 Défavorable</span>',
 };
 const POSTURE_ORDER = { ally: 0, watch: 1, against: 2 };
 
