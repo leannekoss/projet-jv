@@ -55,14 +55,19 @@ tr:hover td { background: #fafafa; }
 .v2-badge { background:rgba(232,93,4,.25); border:1px solid rgba(232,93,4,.5); color:#ff9a5c; font-size:11px; font-weight:700; padding:3px 10px; border-radius:20px; letter-spacing:.5px; white-space:nowrap; }
 .v2-title { font-size:22px; font-weight:800; margin:8px 0 4px; }
 .v2-sub { font-size:13px; opacity:.7; }
-.risk-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:12px; margin-bottom:20px; }
-.risk-card { background:white; border-radius:10px; padding:14px 16px; box-shadow:0 1px 4px rgba(0,0,0,.08); border-left:4px solid #e85d04; }
-.risk-card.high { border-left-color:#dc3545; }
-.risk-card.medium { border-left-color:#fd7e14; }
-.risk-card.watch { border-left-color:#4361ee; }
-.risk-label { font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.5px; color:#888; margin-bottom:4px; }
-.risk-title { font-size:13px; font-weight:700; color:#1a1a2e; margin-bottom:3px; }
-.risk-desc { font-size:11px; color:#666; line-height:1.4; }
+.posture-ally    { background:#198754; color:white; font-size:11px; font-weight:700; padding:3px 10px; border-radius:20px; white-space:nowrap; display:inline-block; }
+.posture-watch   { background:#fd7e14; color:white; font-size:11px; font-weight:700; padding:3px 10px; border-radius:20px; white-space:nowrap; display:inline-block; }
+.posture-against { background:#dc3545; color:white; font-size:11px; font-weight:700; padding:3px 10px; border-radius:20px; white-space:nowrap; display:inline-block; }
+.legend-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:10px; margin-bottom:20px; }
+.legend-card { border-radius:10px; padding:14px 16px; }
+.legend-card.ally    { background:#d1fae5; border-left:4px solid #198754; }
+.legend-card.watch   { background:#fff3cd; border-left:4px solid #fd7e14; }
+.legend-card.against { background:#fee2e2; border-left:4px solid #dc3545; }
+.legend-title { font-size:13px; font-weight:700; margin-bottom:4px; }
+.legend-desc  { font-size:11.5px; color:#555; line-height:1.5; }
+.legend-groups { font-size:10.5px; color:#777; margin-top:6px; font-style:italic; }
+tr.row-ally    { background:rgba(25,135,84,.04); }
+tr.row-against { background:rgba(220,53,69,.04); }
 </style>
 </head>
 <body>
@@ -72,56 +77,73 @@ tr:hover td { background: #fafafa; }
 <div class="v2-banner">
   <div>
     <div class="v2-badge">APERÇU V2 - DONNÉES AVRIL 2026</div>
-    <div class="v2-title">🇪🇺 Eurodéputés français - Agenda alimentaire</div>
-    <div class="v2-sub">73 eurodéputés français actifs au Parlement Européen · Scorés sur additifs, Farm to Fork et réglementation alimentaire</div>
+    <div class="v2-title">🇪🇺 Eurodéputés français · Réglementation alimentaire</div>
+    <div class="v2-sub">73 eurodéputés français au Parlement Européen · Activité sur Farm to Fork, additifs et nitrites</div>
   </div>
 </div>
 
 <div class="stats-grid" style="grid-template-columns:repeat(auto-fit,minmax(150px,1fr));margin-bottom:20px">
-  <div class="stat-card"><div class="stat-value" id="total-meps">-</div><div class="stat-label">eurodéputés FR analysés</div></div>
-  <div class="stat-card"><div class="stat-value" id="actifs-meps">-</div><div class="stat-label">actifs sur thèmes FICT</div></div>
-  <div class="stat-card"><div class="stat-value" id="top-score">-</div><div class="stat-label">score max (Farm to Fork)</div></div>
+  <div class="stat-card"><div class="stat-value" id="n-total">-</div><div class="stat-label">eurodéputés FR analysés</div></div>
+  <div class="stat-card" style="border-top:3px solid #198754"><div class="stat-value" style="color:#198754" id="n-ally">-</div><div class="stat-label">🟢 à cibler en priorité</div></div>
+  <div class="stat-card" style="border-top:3px solid #fd7e14"><div class="stat-value" style="color:#fd7e14" id="n-watch">-</div><div class="stat-label">🟡 à surveiller</div></div>
+  <div class="stat-card" style="border-top:3px solid #dc3545"><div class="stat-value" style="color:#dc3545" id="n-against">-</div><div class="stat-label">🔴 adversaires probables</div></div>
 </div>
 
-<div class="card" style="margin-bottom:20px">
-  <div style="font-size:15px;font-weight:700;margin-bottom:12px;color:#1a1a2e">⚠️ 5 risques réglementaires UE à surveiller</div>
-  <div class="risk-grid">
-    <div class="risk-card high"><div class="risk-label">🔴 Risque immédiat</div><div class="risk-title">Nitrites/Nitrates</div><div class="risk-desc">Règlement 2023/2108 adopté. Révision 1333/2008 en préparation. Horizon 2027-2030.</div></div>
-    <div class="risk-card medium"><div class="risk-label">🟠 Moyen terme</div><div class="risk-title">Farm to Fork</div><div class="risk-desc">Stratégie UE : -50% additifs d'ici 2030. Chaque révision de directive = risque.</div></div>
-    <div class="risk-card medium"><div class="risk-label">🟠 Moyen terme</div><div class="risk-title">Nutriscore obligatoire</div><div class="risk-desc">Charcuterie systématiquement D/E. Obligation UE débattue horizon 2026-2027.</div></div>
-    <div class="risk-card watch"><div class="risk-label">🔵 Veille</div><div class="risk-title">Bien-être animal porc</div><div class="risk-desc">Directive élevage porcin en révision. Hausse coûts matière première si adoptée.</div></div>
-    <div class="risk-card watch"><div class="risk-label">🔵 Veille</div><div class="risk-title">CETA / Accords commerciaux</div><div class="risk-desc">Importations viandes à normes moins strictes. Pression concurrentielle sur filière FR.</div></div>
+<div class="legend-grid">
+  <div class="legend-card ally">
+    <div class="legend-title">🟢 À cibler en priorité</div>
+    <div class="legend-desc">Groupes historiquement <strong>opposés à la surréglementation alimentaire</strong>. Ont voté contre la résolution Farm to Fork (2021). Potentiellement réceptifs aux arguments FICT sur les nitrites.</div>
+    <div class="legend-groups">EPP · ECR · Patriotes pour l'Europe · ESN</div>
+  </div>
+  <div class="legend-card watch">
+    <div class="legend-title">🟡 À surveiller au cas par cas</div>
+    <div class="legend-desc">Groupes aux positions <strong>divisées ou pragmatiques</strong> sur la réglementation alimentaire. Certains membres sont sensibles aux arguments économiques (emploi, filière).</div>
+    <div class="legend-groups">Renew Europe · Non inscrits</div>
+  </div>
+  <div class="legend-card against">
+    <div class="legend-title">🔴 Adversaires probables</div>
+    <div class="legend-desc">Groupes <strong>favorables à la restriction des additifs</strong> et à la stratégie Farm to Fork. Ont voté pour des réglementations plus strictes. Convaincre = peine perdue sauf cas exceptionnel.</div>
+    <div class="legend-groups">Verts/ALE · S&D · Gauche GUE/NGL</div>
   </div>
 </div>
 
 <div class="card">
   <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:8px">
-    <div style="font-size:15px;font-weight:700;color:#1a1a2e">Eurodéputés français · Score agenda alimentaire</div>
-    <div style="font-size:11px;color:#888">score = additifs×3 + Farm to Fork×2 + nitrites×2 + EGAlim×1</div>
+    <div style="font-size:15px;font-weight:700;color:#1a1a2e">Eurodéputés français · Activité sur agenda alimentaire</div>
+    <div style="font-size:11px;color:#888">Score = Farm to Fork×3 + nitrites×3 + additifs×2 + EGAlim×1 · Proxy groupe politique pour la posture</div>
   </div>
   <input type="text" id="search-eu" class="search-bar" placeholder="Rechercher un eurodéputé...">
   <div class="filter-row">
+    <select id="filter-posture" class="filter-select">
+      <option value="">Toutes postures</option>
+      <option value="ally">🟢 À cibler</option>
+      <option value="watch">🟡 À surveiller</option>
+      <option value="against">🔴 Adversaires</option>
+    </select>
     <select id="filter-groupe" class="filter-select"><option value="">Tous les groupes</option></select>
     <select id="filter-actifs" class="filter-select">
       <option value="">Tous les MEPs</option>
-      <option value="actif">Actifs sur thèmes FICT uniquement</option>
+      <option value="actif">Actifs sur thèmes FICT</option>
     </select>
   </div>
   <div style="overflow-x:auto">
   <table id="meps-table">
     <thead><tr>
+      <th onclick="sortTable('posture')">Posture ↕</th>
       <th onclick="sortTable('nom')">Eurodéputé ↕</th>
       <th onclick="sortTable('groupe')">Groupe ↕</th>
-      <th onclick="sortTable('additifs')" title="Interventions sur additifs alimentaires">Additifs ↕</th>
-      <th onclick="sortTable('farm_to_fork')" title="Interventions Farm to Fork">Farm to Fork ↕</th>
-      <th onclick="sortTable('nitrites')" title="Interventions sur nitrites">Nitrites ↕</th>
-      <th onclick="sortTable('score_eu')">Score ↕</th>
-      <th>Profil PE</th>
+      <th onclick="sortTable('farm_to_fork')" title="Interventions Farm to Fork (EN)">Farm to Fork ↕</th>
+      <th onclick="sortTable('additifs')" title="Interventions additifs alimentaires">Additifs ↕</th>
+      <th onclick="sortTable('nitrites')" title="Interventions nitrites">Nitrites ↕</th>
+      <th onclick="sortTable('score_eu')">Score activité ↕</th>
+      <th>Profil EP</th>
     </tr></thead>
     <tbody id="meps-tbody"></tbody>
   </table>
   </div>
-  <div id="meps-count" style="font-size:12px;color:#888;margin-top:8px;text-align:right"></div>
+  <div style="font-size:11px;color:#aaa;margin-top:10px;font-style:italic">
+    ⚠️ La posture est une estimation basée sur le groupe politique (vote PE sur Farm to Fork 2021). Elle ne reflète pas les positions individuelles. Score élevé = forte activité sur ces thèmes, pas nécessairement une position favorable à la FICT.
+  </div>
 </div>
 
 </div>
@@ -130,14 +152,41 @@ let allMeps = [];
 let sortKey = 'score_eu';
 let sortAsc = false;
 
+// Mapping groupe → posture (basé sur vote PE résolution Farm to Fork 2021)
+const POSTURE_MAP = {
+  'Europe - Verts/Alliance libre européenne':                        'against',
+  'Europe - Alliance Progressiste des Socialistes et Démocrates':   'against',
+  'Europe - Gauche au Parlement européen - GUE/NGL':                'against',
+  'Europe - Groupe confédéral de la Gauche unitaire européenne':    'against',
+  'Europe - Renew Europe':                                           'watch',
+  'Europe - Alliance des démocrates et des libéraux pour l'Europe':'watch',
+  'Europe - Non inscrits':                                           'watch',
+  'Europe - Parti populaire européen (Démocrates-Chrétiens)':       'ally',
+  'Europe - Conservateurs et Réformistes européens':                'ally',
+  "Europe - Patriotes pour l'Europe":                               'ally',
+  'Europe - Identité et démocratie':                                'ally',
+  "Europe - L'Europe des nations souveraines (ENS)":               'ally',
+  'Europe - Europe des Nations et des Libertés':                    'ally',
+};
+
+const POSTURE_LABELS = {
+  ally:    '<span class="posture-ally">🟢 À cibler</span>',
+  watch:   '<span class="posture-watch">🟡 Surveiller</span>',
+  against: '<span class="posture-against">🔴 Adversaire</span>',
+};
+const POSTURE_ORDER = { ally: 0, watch: 1, against: 2 };
+
+function getPosture(m) {
+  return POSTURE_MAP[m.groupe] || 'watch';
+}
+
 fetch('data/meps.json').then(r=>r.json()).then(data => {
   allMeps = data;
-  document.getElementById('total-meps').textContent = data.length;
-  document.getElementById('actifs-meps').textContent = data.filter(m=>m.score_eu>0).length;
-  const maxScore = data.reduce((m,x)=>Math.max(m,x.score_eu),0);
-  document.getElementById('top-score').textContent = maxScore;
+  document.getElementById('n-total').textContent   = data.length;
+  document.getElementById('n-ally').textContent    = data.filter(m=>getPosture(m)==='ally').length;
+  document.getElementById('n-watch').textContent   = data.filter(m=>getPosture(m)==='watch').length;
+  document.getElementById('n-against').textContent = data.filter(m=>getPosture(m)==='against').length;
 
-  // Groupes uniques
   const groupes = [...new Set(data.map(m=>m.groupe).filter(Boolean))].sort();
   const sel = document.getElementById('filter-groupe');
   groupes.forEach(g => {
@@ -150,37 +199,47 @@ fetch('data/meps.json').then(r=>r.json()).then(data => {
 });
 
 function render() {
-  const q = document.getElementById('search-eu').value.toLowerCase();
-  const grp = document.getElementById('filter-groupe').value;
-  const actifs = document.getElementById('filter-actifs').value;
+  const q       = document.getElementById('search-eu').value.toLowerCase();
+  const grp     = document.getElementById('filter-groupe').value;
+  const actifs  = document.getElementById('filter-actifs').value;
+  const posture = document.getElementById('filter-posture').value;
 
   let data = allMeps.filter(m => {
     if (q && !m.nom.toLowerCase().includes(q)) return false;
     if (grp && m.groupe !== grp) return false;
     if (actifs === 'actif' && m.score_eu === 0) return false;
+    if (posture && getPosture(m) !== posture) return false;
     return true;
   });
 
   data = data.slice().sort((a,b) => {
+    if (sortKey === 'posture') {
+      const pa = POSTURE_ORDER[getPosture(a)] ?? 1;
+      const pb = POSTURE_ORDER[getPosture(b)] ?? 1;
+      return sortAsc ? pa-pb : pb-pa;
+    }
     const av = a[sortKey], bv = b[sortKey];
     if (typeof av === 'string') return sortAsc ? av.localeCompare(bv) : bv.localeCompare(av);
     return sortAsc ? av-bv : bv-av;
   });
 
-  const scoreMax = allMeps.reduce((m,x)=>Math.max(m,x.score_eu),1);
+  const scoreMax = allMeps.reduce((mx,x)=>Math.max(mx,x.score_eu),1);
   const tbody = document.getElementById('meps-tbody');
   tbody.innerHTML = data.map(m => {
-    const grpShort = (m.groupe||'').replace('Europe - ','').substring(0,20);
-    const pct = Math.min(100,(m.score_eu/scoreMax)*100).toFixed(0);
-    const scoreStyle = m.score_eu>10?'font-weight:700;color:#e85d04':m.score_eu>3?'font-weight:600':'';
-    const profil = m.url_fiche ? `<a href="${m.url_fiche}" target="_blank" rel="noopener" style="color:#4361ee;font-size:12px">→ EP</a>` : '-';
-    return `<tr>
+    const p      = getPosture(m);
+    const rowCls = p === 'ally' ? 'row-ally' : p === 'against' ? 'row-against' : '';
+    const grpShort = (m.groupe||'').replace('Europe - ','').substring(0,22);
+    const pct      = Math.min(100,(m.score_eu/scoreMax)*100).toFixed(0);
+    const scoreStyle = m.score_eu > 30 ? 'font-weight:700;color:#e85d04' : m.score_eu > 5 ? 'font-weight:600' : '';
+    const profil   = m.url_fiche ? `<a href="${m.url_fiche}" target="_blank" rel="noopener" style="color:#4361ee;font-size:12px">→ EP</a>` : '-';
+    return `<tr class="${rowCls}">
+      <td>${POSTURE_LABELS[p] || ''}</td>
       <td style="font-weight:600">${m.nom}</td>
       <td><span style="font-size:11px;background:#f0f0f0;padding:2px 7px;border-radius:10px;white-space:nowrap">${grpShort}</span></td>
-      <td>${m.additifs||'-'}</td>
-      <td>${m.farm_to_fork||'-'}</td>
-      <td>${m.nitrites||'-'}</td>
-      <td style="background:linear-gradient(to right,rgba(232,93,4,.1) ${pct}%,transparent ${pct}%);${scoreStyle}">${m.score_eu}</td>
+      <td>${m.farm_to_fork || '-'}</td>
+      <td>${m.additifs || '-'}</td>
+      <td>${m.nitrites || '-'}</td>
+      <td style="background:linear-gradient(to right,rgba(232,93,4,.1) ${pct}%,transparent ${pct}%);${scoreStyle}">${m.score_eu || '-'}</td>
       <td>${profil}</td>
     </tr>`;
   }).join('');
@@ -196,6 +255,9 @@ function sortTable(key) {
 document.getElementById('search-eu').addEventListener('input', render);
 document.getElementById('filter-groupe').addEventListener('change', render);
 document.getElementById('filter-actifs').addEventListener('change', render);
+document.getElementById('filter-posture').addEventListener('change', render);
+
+// Tri par défaut : posture d'abord (alliés en haut), puis score
 </script>
 </body>
 </html>
