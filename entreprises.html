@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Entreprises FICT — Projet JV</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f5f7; color: #1d1d1f; }
+.top-nav { background: #1a1a2e; color: white; padding: 0 24px; display: flex; align-items: center; gap: 24px; height: 52px; position: sticky; top: 0; z-index: 1000; }
+.nav-brand { font-weight: 700; font-size: 16px; white-space: nowrap; }
+.nav-links { display: flex; gap: 4px; }
+.nav-link { color: rgba(255,255,255,0.75); text-decoration: none; padding: 6px 12px; border-radius: 6px; font-size: 13px; transition: all .2s; }
+.nav-link:hover, .nav-link.active { background: rgba(255,255,255,0.15); color: white; }
+.container { max-width: 1200px; margin: 0 auto; padding: 24px 20px; }
+.page-title { font-size: 24px; font-weight: 700; margin-bottom: 6px; }
+.page-subtitle { font-size: 14px; color: #666; margin-bottom: 24px; }
+.card { background: white; border-radius: 12px; padding: 20px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
+.badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; }
+.badge-agri { background: #d4edda; color: #155724; }
+.badge-eco { background: #cce5ff; color: #004085; }
+.badge-egalim { background: #fff3cd; color: #856404; }
+.badge-an { background: #fce8d5; color: #8a3a00; }
+.badge-sen { background: #d9e8ff; color: #003680; }
+.vote-pour { background: #28a745; color: white; }
+.vote-contre { background: #dc3545; color: white; }
+.vote-abstention { background: #fd7e14; color: white; }
+.vote-absent { background: #aaa; color: white; }
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+th { text-align: left; padding: 10px 12px; background: #f8f9fa; font-weight: 600; font-size: 12px; color: #555; border-bottom: 2px solid #eee; cursor: pointer; user-select: none; white-space: nowrap; }
+th:hover { background: #e9ecef; }
+td { padding: 8px 12px; border-bottom: 1px solid #f0f0f0; vertical-align: middle; }
+tr:hover td { background: #fafafa; }
+.search-bar { width: 100%; padding: 10px 14px; border: 1px solid #ddd; border-radius: 8px; font-size: 14px; margin-bottom: 12px; }
+.filter-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
+.filter-select { padding: 6px 10px; border: 1px solid #ddd; border-radius: 6px; font-size: 13px; background: white; }
+.stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin-bottom: 24px; }
+.stat-card { background: white; border-radius: 10px; padding: 16px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
+.stat-value { font-size: 28px; font-weight: 700; color: #1a1a2e; }
+.stat-label { font-size: 12px; color: #888; margin-top: 4px; }
+.pagination { display: flex; gap: 4px; justify-content: center; margin-top: 16px; flex-wrap: wrap; }
+.page-btn { padding: 5px 10px; border: 1px solid #ddd; border-radius: 4px; background: white; cursor: pointer; font-size: 13px; }
+.page-btn.active { background: #1a1a2e; color: white; border-color: #1a1a2e; }
+.page-btn:hover:not(.active) { background: #f0f0f0; }
+
+.ca-bar { height: 6px; background: #e9ecef; border-radius: 3px; margin-top: 4px; }
+.ca-fill { height: 100%; background: #1a1a2e; border-radius: 3px; }
+</style>
+</head>
+<body>
+<nav class="top-nav"><div class="nav-brand">🥩 FICT Lobbying</div><div class="nav-links"><a href="index.html" class="nav-link ">🗺️ Carte</a><a href="parlementaires.html" class="nav-link ">👥 Parlementaires</a><a href="partis.html" class="nav-link ">🏛️ Partis</a><a href="groupes.html" class="nav-link ">🏭 Industriels</a><a href="entreprises.html" class="nav-link active">🏢 Entreprises</a></div></nav>
+<div class="container">
+<h1 class="page-title">Entreprises adhérentes FICT</h1>
+<p class="page-subtitle">Données INPI + INSEE — dirigeants et chiffres d'affaires enrichis</p>
+<div class="stats-grid" id="stats"></div>
+<div class="card">
+<input class="search-bar" id="search" placeholder="Rechercher une entreprise, un dirigeant..." oninput="render()">
+<div class="filter-row">
+  <select class="filter-select" id="fSyndicat" onchange="render()"><option value="">Tous les syndicats</option></select>
+  <select class="filter-select" id="fNaf" onchange="render()"><option value="">Tous les codes NAF</option></select>
+  <select class="filter-select" id="fCa" onchange="render()">
+    <option value="">Tous les CA</option>
+    <option value="100">CA &gt; 100M€</option>
+    <option value="50">CA &gt; 50M€</option>
+    <option value="10">CA &gt; 10M€</option>
+    <option value="1">CA disponible</option>
+  </select>
+</div>
+<div id="count" style="font-size:13px;color:#888;margin-bottom:12px;"></div>
+<div style="overflow-x:auto"><table><thead><tr>
+  <th onclick="sortBy('nom_fict')">Entreprise</th>
+  <th onclick="sortBy('syndicat')">Syndicat</th>
+  <th onclick="sortBy('nb_sites')">Sites</th>
+  <th onclick="sortBy('ca')">CA (M€)</th>
+  <th>Forme</th>
+  <th>Dirigeants</th>
+  <th>Création</th>
+</tr></thead><tbody id="tbody"></tbody></table></div>
+<div class="pagination" id="pagination"></div>
+</div>
+</div>
+<script>
+const NAF_LABELS = {'10.13A':'Prépa viande','10.13B':'Charcuterie','10.11Z':'Abattage','10.12Z':'Volaille'};
+let data = [], filtered = [], sortCol = 'ca', sortDir = -1, page = 1;
+const PAGE = 50;
+fetch('data/entreprises.json').then(r=>r.json()).then(d=>{
+  data = d;
+  const syndicats = [...new Set(d.map(e=>e.syndicat).filter(Boolean))].sort();
+  const nafs = [...new Set(d.map(e=>e.naf).filter(Boolean))].sort();
+  syndicats.forEach(s=>{const o=document.createElement('option');o.value=s;o.textContent=s;document.getElementById('fSyndicat').appendChild(o);});
+  nafs.forEach(n=>{const o=document.createElement('option');o.value=n;o.textContent=NAF_LABELS[n]||n;document.getElementById('fNaf').appendChild(o);});
+  const avecCa = d.filter(e=>e.ca).length;
+  const totalCa = d.filter(e=>e.ca).reduce((a,e)=>a+(e.ca||0),0);
+  const avecDir = d.filter(e=>e.dirigeants).length;
+  document.getElementById('stats').innerHTML = `
+    <div class="stat-card"><div class="stat-value">${d.length}</div><div class="stat-label">Entreprises enrichies</div></div>
+    <div class="stat-card"><div class="stat-value">${avecCa}</div><div class="stat-label">Avec CA disponible</div></div>
+    <div class="stat-card"><div class="stat-value">${(totalCa/1e9).toFixed(1)}Md€</div><div class="stat-label">CA total agrégé</div></div>
+    <div class="stat-card"><div class="stat-value">${avecDir}</div><div class="stat-label">Avec dirigeants</div></div>
+  `;
+  render();
+});
+function render(){
+  const q = document.getElementById('search').value.toLowerCase();
+  const syn = document.getElementById('fSyndicat').value;
+  const naf = document.getElementById('fNaf').value;
+  const caMin = parseFloat(document.getElementById('fCa').value)||0;
+  filtered = data.filter(e=>{
+    if(q && !JSON.stringify(e).toLowerCase().includes(q)) return false;
+    if(syn && e.syndicat !== syn) return false;
+    if(naf && e.naf !== naf) return false;
+    if(caMin===1 && !e.ca) return false;
+    if(caMin>1 && (e.ca||0) < caMin*1e6) return false;
+    return true;
+  });
+  filtered.sort((a,b)=>{
+    const va=a[sortCol]??-1, vb=b[sortCol]??-1;
+    return sortDir*(va>vb?1:va<vb?-1:0);
+  });
+  page=1; paginate();
+}
+function sortBy(col){sortCol===col?sortDir*=-1:(sortCol=col,sortDir=-1);render();}
+function paginate(){
+  const total=filtered.length, pages=Math.ceil(total/PAGE)||1;
+  document.getElementById('count').textContent=`${total} entreprise${total>1?'s':''}`;
+  const slice=filtered.slice((page-1)*PAGE, page*PAGE);
+  const maxCa = Math.max(...data.map(e=>e.ca||0));
+  document.getElementById('tbody').innerHTML = slice.map(e=>{
+    const ca = e.ca ? (e.ca/1e6).toFixed(1)+'M€' : '-';
+    const pct = e.ca ? Math.round(e.ca/maxCa*100) : 0;
+    const dirs = e.dirigeants ? e.dirigeants.split(' | ').map(d=>`<div style="font-size:11px;color:#555">${d}</div>`).join('') : '-';
+    return `<tr>
+      <td><strong>${e.nom_fict}</strong><div style="font-size:11px;color:#888">${e.denomination||''}</div></td>
+      <td style="font-size:12px">${e.syndicat||'-'}</td>
+      <td style="text-align:center">${e.nb_sites}</td>
+      <td><div>${ca}</div><div class="ca-bar"><div class="ca-fill" style="width:${pct}%"></div></div></td>
+      <td style="font-size:11px">${e.forme_juridique||'-'}</td>
+      <td>${dirs}</td>
+      <td style="font-size:12px">${e.date_creation||'-'}</td>
+    </tr>`;
+  }).join('');
+  const pag=document.getElementById('pagination');
+  pag.innerHTML='';
+  for(let i=1;i<=pages;i++){
+    const b=document.createElement('button');
+    b.className='page-btn'+(i===page?' active':'');
+    b.textContent=i; b.onclick=()=>{page=i;paginate();};
+    pag.appendChild(b);
+  }
+}
+</script>
+</body></html>

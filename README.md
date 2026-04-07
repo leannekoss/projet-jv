@@ -1,23 +1,23 @@
-# Projet JV — Carte Parlementaire & Filière Agroalimentaire
+# FICT Lobbying — Minisite
 
-Outil d'analyse et de visualisation de l'empreinte territoriale de la filière viande/charcuterie
-et du positionnement des parlementaires sur les lois agricoles clés.
+Site statique généré automatiquement depuis le pipeline FICT.
 
-## Accès
+## GitHub Pages Setup
 
-Site disponible à l'adresse GitHub Pages du projet.
+1. Pousser ce dossier `site/` dans un repo GitHub
+2. Dans Settings → Pages : sélectionner la branche `main` et le dossier `/docs` (ou renommer `site/` en `docs/`)
+3. L'URL sera : `https://{username}.github.io/{repo}/`
 
-## Pages
+## Structure
 
-- **Carte** — Choroplèthe départementale + marqueurs des sites de production
-- **Parlementaires** — Tableau filtrable / triable (577 députés + 348 sénateurs)
-- **Fiche parlementaire** — Détail par élu : votes, commissions, implantation locale
-- **Analyse partis** — Positionnement agrégé par groupe politique
-- **Groupes industriels** — Empreinte nationale des acteurs multi-sites
+- `index.html` — Carte Leaflet interactive (choroplèthe + marqueurs)
+- `parlementaires.html` — Tableau filtrable/triable des 925 parlementaires
+- `fiche.html` — Fiche détaillée par parlementaire (votes + commissions + sites)
+- `partis.html` — Analyse par parti politique
+- `groupes.html` — Groupes industriels multi-sites
+- `data/` — Fichiers JSON (régénérés par `python3 generate_site.py`)
 
-## Données couvertes
+## Données
 
-- 925 parlementaires (AN + Sénat)
-- 258 sites de production géolocalisés
-- 6 scrutins nominatifs : EGALIM 1/2/3, LOA 2024, PPL Revenu agriculteurs, PPL Marges agroalim
-- Sources : data.gouv.fr / SIRENE / data.assemblee-nationale.fr
+Générées par `pipeline.py` puis converties en JSON par `generate_site.py`.
+Pour mettre à jour, relancer `python3 pipeline.py` puis `python3 generate_site.py`.
