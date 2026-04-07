@@ -1,4 +1,4 @@
-# FICT Lobbying — Minisite
+# FICT Lobbying - Minisite
 
 Site statique généré automatiquement depuis le pipeline FICT.
 
@@ -10,12 +10,12 @@ Site statique généré automatiquement depuis le pipeline FICT.
 
 ## Structure
 
-- `index.html` — Carte Leaflet interactive (choroplèthe + marqueurs)
-- `parlementaires.html` — Tableau filtrable/triable des 925 parlementaires
-- `fiche.html` — Fiche détaillée par parlementaire (votes + commissions + sites)
-- `partis.html` — Analyse par parti politique
-- `groupes.html` — Groupes industriels multi-sites
-- `data/` — Fichiers JSON (régénérés par `python3 generate_site.py`)
+- `index.html` - Carte Leaflet interactive (choroplèthe + marqueurs)
+- `parlementaires.html` - Tableau filtrable/triable des 925 parlementaires
+- `fiche.html` - Fiche détaillée par parlementaire (votes + commissions + sites)
+- `partis.html` - Analyse par parti politique
+- `groupes.html` - Groupes industriels multi-sites
+- `data/` - Fichiers JSON (régénérés par `python3 generate_site.py`)
 
 ## Données
 

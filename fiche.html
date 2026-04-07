@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
-<title>FICT — Fiche parlementaire</title>
+<title>FICT - Fiche parlementaire</title>
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f5f7; color: #1d1d1f; }
@@ -76,13 +76,13 @@ const VOTE_ICONS = {pour:'✅',contre:'❌',abstention:'🟡',absent:'⬜'};
 
 function voteRow(label, v, loi) {
   const c = VOTE_COLORS[v] || '#eee';
-  const icon = VOTE_ICONS[v] || '—';
+  const icon = VOTE_ICONS[v] || '-';
   return `<div class="vote-row">
     <div>
       <div style="font-weight:600">${label}</div>
       ${loi?`<div style="font-size:11px;color:#888">Loi ${loi}</div>`:''}
     </div>
-    <span style="background:${c};color:${v==='absent'||!v?'#555':'white'};padding:4px 12px;border-radius:5px;font-size:12px;font-weight:600">${icon} ${v||'—'}</span>
+    <span style="background:${c};color:${v==='absent'||!v?'#555':'white'};padding:4px 12px;border-radius:5px;font-size:12px;font-weight:600">${icon} ${v||'-'}</span>
   </div>`;
 }
 
@@ -96,7 +96,7 @@ fetch('data/parlementaires.json').then(r=>r.json()).then(data => {
     document.getElementById('content').innerHTML = '<div class="card" style="padding:24px">Parlementaire non trouvé.</div>';
     return;
   }
-  document.title = `FICT — ${p.nom}`;
+  document.title = `FICT - ${p.nom}`;
   const chambreColor = p.chambre === 'AN' ? '#e85d04' : '#4361ee';
   const posColor = p.position&&p.position.includes('pro') ? '#28a745' : p.position&&p.position.includes('réservé') ? '#dc3545' : '#555';
 
@@ -120,7 +120,7 @@ fetch('data/parlementaires.json').then(r=>r.json()).then(data => {
       <div class="fiche-meta">
         <span style="background:${chambreColor};padding:3px 10px;border-radius:5px;font-size:13px;font-weight:600">${p.chambre === 'AN' ? '🏛️ Assemblée Nationale' : '🏦 Sénat'}</span>
         <span>🏷️ ${p.groupe}</span>
-        <span>📍 Dept. ${p.dept} — ${p.nom_dept}</span>
+        <span>📍 Dept. ${p.dept} - ${p.nom_dept}</span>
         ${p.circo ? `<span>Circonscription ${p.circo}</span>` : ''}
       </div>
     </div>
@@ -162,42 +162,42 @@ fetch('data/parlementaires.json').then(r=>r.json()).then(data => {
       <div style="font-size:32px;font-weight:800;color:#e85d04;min-width:48px;text-align:center">${p.interventions_nitrites}</div>
       <div>
         <div style="font-weight:700;color:#1a1a2e;font-size:14px">intervention${p.interventions_nitrites>1?'s':''} parlementaire${p.interventions_nitrites>1?'s':''} sur <em>nitrites / charcuterie</em></div>
-        <div style="font-size:12px;color:#888;margin-top:2px">Source : Pappers Politique — amendements, PPL, rapports, questions au gouvernement</div>
+        <div style="font-size:12px;color:#888;margin-top:2px">Source : Pappers Politique - amendements, PPL, rapports, questions au gouvernement</div>
       </div>
     </div>` : ''}
     <div class="card" style="margin-bottom:16px">
       <div class="section-title">📢 Activité parlementaire (17e législature)</div>
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px;margin-top:8px">
         <div style="text-align:center;background:#f8f9fa;border-radius:8px;padding:12px">
-          <div style="font-size:24px;font-weight:700;color:#1a1a2e">${p.hemicycle_interventions||'—'}</div>
+          <div style="font-size:24px;font-weight:700;color:#1a1a2e">${p.hemicycle_interventions||'-'}</div>
           <div style="font-size:11px;color:#888;margin-top:3px">Interventions hémicycle</div>
         </div>
         <div style="text-align:center;background:#f8f9fa;border-radius:8px;padding:12px">
-          <div style="font-size:24px;font-weight:700;color:#1a1a2e">${p.questions_orales||'—'}</div>
+          <div style="font-size:24px;font-weight:700;color:#1a1a2e">${p.questions_orales||'-'}</div>
           <div style="font-size:11px;color:#888;margin-top:3px">Questions orales</div>
         </div>
         <div style="text-align:center;background:#f8f9fa;border-radius:8px;padding:12px">
-          <div style="font-size:24px;font-weight:700;color:#1a1a2e">${p.questions_ecrites||'—'}</div>
+          <div style="font-size:24px;font-weight:700;color:#1a1a2e">${p.questions_ecrites||'-'}</div>
           <div style="font-size:11px;color:#888;margin-top:3px">Questions écrites</div>
         </div>
         <div style="text-align:center;background:#f8f9fa;border-radius:8px;padding:12px">
-          <div style="font-size:24px;font-weight:700;color:#1a1a2e">${p.propositions_ecrites||'—'}</div>
+          <div style="font-size:24px;font-weight:700;color:#1a1a2e">${p.propositions_ecrites||'-'}</div>
           <div style="font-size:11px;color:#888;margin-top:3px">PPL déposées</div>
         </div>
         <div style="text-align:center;background:#f8f9fa;border-radius:8px;padding:12px">
-          <div style="font-size:24px;font-weight:700;color:#1a1a2e">${p.propositions_signees||'—'}</div>
+          <div style="font-size:24px;font-weight:700;color:#1a1a2e">${p.propositions_signees||'-'}</div>
           <div style="font-size:11px;color:#888;margin-top:3px">PPL co-signées</div>
         </div>
         <div style="text-align:center;background:#f8f9fa;border-radius:8px;padding:12px">
-          <div style="font-size:24px;font-weight:700;color:#1a1a2e">${p.nb_amendements_deposes||'—'}</div>
+          <div style="font-size:24px;font-weight:700;color:#1a1a2e">${p.nb_amendements_deposes||'-'}</div>
           <div style="font-size:11px;color:#888;margin-top:3px">Amdt agroalim.</div>
         </div>
         <div style="text-align:center;background:#f8f9fa;border-radius:8px;padding:12px">
-          <div style="font-size:24px;font-weight:700;color:#1a1a2e">${p.nb_amendements_cosignes||'—'}</div>
+          <div style="font-size:24px;font-weight:700;color:#1a1a2e">${p.nb_amendements_cosignes||'-'}</div>
           <div style="font-size:11px;color:#888;margin-top:3px">Amdt co-signés</div>
         </div>
         <div style="text-align:center;background:#f8f9fa;border-radius:8px;padding:12px">
-          <div style="font-size:24px;font-weight:700;color:#1a1a2e">${p.semaines_presence||'—'}</div>
+          <div style="font-size:24px;font-weight:700;color:#1a1a2e">${p.semaines_presence||'-'}</div>
           <div style="font-size:11px;color:#888;margin-top:3px">Semaines présence</div>
         </div>
       </div>
