@@ -136,6 +136,46 @@ score_engagement = Σ memberships (0–11 points max)<br>
   </div>
 
   <div class="meth-section">
+    <div class="meth-title">🇪🇺 Formule du score eurodéputés (score_eu)</div>
+    <p style="font-size:13px;color:#555;margin-bottom:12px">Le score EU mesure l'<strong>activité d'un eurodéputé français sur les thèmes FICT</strong> au Parlement Européen : réglementation alimentaire, additifs, nitrites, Farm to Fork.</p>
+    <div class="formula-box">
+score_eu = Farm_to_Fork × 3<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; + nitrites × 3<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; + additifs × 2<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; + EGAlim × 1<br>
+<br>
+<span class="formula-comment"># Chaque composante = nombre d'interventions au PE (questions, rapports, discours)</span><br>
+<span class="formula-comment"># Score élevé = forte activité sur ces thèmes — pas nécessairement une position favorable</span>
+    </div>
+    <p style="font-size:12px;color:#888;margin-top:8px">⚠️ Le score mesure l'activité, pas la position. Un adversaire actif peut avoir un score élevé.</p>
+  </div>
+
+  <div class="meth-section">
+    <div class="meth-title">🇪🇺 Posture lobbying (favorable / neutre / défavorable)</div>
+    <p style="font-size:13px;color:#555;margin-bottom:12px">La posture est un <strong>proxy basé sur le groupe politique</strong>, dérivé du vote du Parlement Européen sur la résolution Farm to Fork (2021). Elle ne reflète pas les positions individuelles.</p>
+    <table class="source-table">
+      <thead><tr><th>Posture</th><th>Groupes politiques</th><th>Logique</th></tr></thead>
+      <tbody>
+        <tr><td><span style="background:#d1fae5;color:#155724;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:700">🟢 Favorable</span></td><td>EPP · ECR · Patriotes pour l'Europe · ENS</td><td style="font-size:12px;color:#555">Ont voté <strong>contre</strong> la résolution Farm to Fork 2021. Historiquement opposés à la surréglementation alimentaire.</td></tr>
+        <tr><td><span style="background:#fff3cd;color:#856404;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:700">🟡 Neutre</span></td><td>Renew Europe · Non inscrits</td><td style="font-size:12px;color:#555">Positions divisées ou pragmatiques. Sensibles aux arguments économiques (emploi, filière).</td></tr>
+        <tr><td><span style="background:#fee2e2;color:#7f1d1d;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:700">🔴 Défavorable</span></td><td>Verts/ALE · S&amp;D · Gauche GUE/NGL</td><td style="font-size:12px;color:#555">Ont voté <strong>pour</strong> la résolution Farm to Fork 2021. Favorables à la restriction des additifs.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="meth-section">
+    <div class="meth-title">📂 Sources de données — Parlement Européen</div>
+    <table class="source-table">
+      <thead><tr><th>Source</th><th>Données récupérées</th><th>Date collecte</th></tr></thead>
+      <tbody>
+        <tr><td><span class="source-tag">Parlement Européen</span><br><small>europarl.europa.eu — fiches MEPs</small></td><td>Identités, groupes politiques, photos, URLs fiches officielles des 73 eurodéputés français</td><td>Avril 2026</td></tr>
+        <tr><td><span class="source-tag">Pappers Politique</span><br><small>politique.pappers.fr — acteurs PE</small></td><td>Activité parlementaire : interventions sur Farm to Fork, nitrites, additifs, EGAlim — mots-clés EN/FR</small></td><td>Avril 2026</td></tr>
+        <tr><td><span class="source-tag">Vote PE 2021</span><br><small>Résolution Farm to Fork — scrutin nominal</small></td><td>Base de la classification posture par groupe politique (favorable / neutre / défavorable)</td><td>Référence 2021</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="meth-section">
     <div class="meth-title">⚠️ Limites à connaître</div>
     <ul style="font-size:13px;color:#555;line-height:2;padding-left:20px">
       <li><strong>Niveau département</strong> : le score utilise le département (pas la circonscription) - tous les élus d'un département reçoivent le même score d'implantation.</li>
@@ -143,6 +183,8 @@ score_engagement = Σ memberships (0–11 points max)<br>
       <li><strong>Scrutins Sénat</strong> : les votes nominatifs ne sont disponibles que pour les députés (AN). Les sénateurs votent selon des procédures différentes.</li>
       <li><strong>SIRENE</strong> : délai de mise à jour possible (ouvertures/fermetures récentes peuvent manquer).</li>
       <li><strong>17e législature en cours</strong> : <code>sort: null</code> sur les amendements = normal pour la session en cours (pas encore finalisés).</li>
+      <li><strong>Posture EU = proxy groupe</strong> : la posture (favorable/neutre/défavorable) est calculée au niveau du groupe politique, pas de l'individu. Un eurodéputé peut avoir une position divergente de son groupe.</li>
+      <li><strong>Score EU = activité, pas opinion</strong> : un score élevé indique de l'activité sur les thèmes FICT, pas nécessairement une position favorable. Pascal Canfin (score 248) est très actif mais défavorable à nos positions.</li>
     </ul>
   </div>
 
