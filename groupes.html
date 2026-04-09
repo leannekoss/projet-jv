@@ -7,7 +7,7 @@
 <title>FICT - Groupes industriels</title>
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f5f7; color: #1d1d1f; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f5f7; color: #1d1d1f; color-scheme: light; }
 .top-nav { background: #1a1a2e; color: white; padding: 0 24px; display: flex; align-items: center; gap: 24px; height: 52px; position: sticky; top: 0; z-index: 1000; }
 .nav-brand { font-weight: 700; font-size: 16px; white-space: nowrap; }
 .nav-links { display: flex; gap: 4px; overflow-x: auto; -webkit-overflow-scrolling: touch; }
@@ -33,32 +33,48 @@ th { text-align: left; padding: 10px 12px; background: #f8f9fa; font-weight: 600
 th:hover { background: #e9ecef; }
 td { padding: 8px 12px; border-bottom: 1px solid #f0f0f0; vertical-align: middle; }
 tr:hover td { background: #fafafa; }
-.search-bar { width: 100%; padding: 10px 14px; border: 1px solid #ddd; border-radius: 8px; font-size: 14px; margin-bottom: 12px; }
+.search-bar { width: 100%; padding: 10px 14px; border: 1px solid #ddd; border-radius: 8px; font-size: 14px; margin-bottom: 12px; position: relative; z-index: 1; }
+.search-bar:focus { outline: 2px solid #e85d04; outline-offset: 1px; border-color: #e85d04; }
 .filter-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
-.filter-select { padding: 6px 10px; border: 1px solid #ddd; border-radius: 6px; font-size: 13px; background: white; }
+.filter-select { padding: 6px 10px; border: 1px solid #ddd; border-radius: 6px; font-size: 13px; background: white; color: #1d1d1f; }
+.filter-select option { background: white; color: #1d1d1f; }
 .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin-bottom: 24px; }
 .stat-card { background: white; border-radius: 10px; padding: 20px 16px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); transition: box-shadow .2s, transform .2s; border: 1px solid transparent; }
 .stat-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.12); transform: translateY(-1px); border-color: rgba(232,93,4,0.15); }
 .stat-value { font-size: 36px; font-weight: 700; color: #1a1a2e; font-feature-settings: "tnum"; }
-.stat-label { font-size: 12px; color: #888; margin-top: 6px; }
+.stat-label { font-size: 12px; color: #666; margin-top: 6px; }
 .pagination { display: flex; gap: 4px; justify-content: center; margin-top: 16px; flex-wrap: wrap; }
 .page-btn { padding: 5px 10px; border: 1px solid #ddd; border-radius: 4px; background: white; cursor: pointer; font-size: 13px; }
 .page-btn.active { background: #1a1a2e; color: white; border-color: #1a1a2e; }
 .page-btn:hover:not(.active) { background: #f0f0f0; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+:focus-visible { outline: 2px solid #e85d04; outline-offset: 2px; }
 @media(max-width:640px) {
   .top-nav { padding: 6px 12px; gap: 8px; height: auto; flex-wrap: wrap; }
   .nav-links { width: 100%; overflow-x: auto; }
   .nav-link { padding: 4px 8px; font-size: 11px; }
 }
+@media(max-width:768px) {
+  table { font-size: 12px; }
+  th, td { padding: 6px 8px; }
+  .filter-row { flex-direction: column; }
+  .filter-select { width: 100%; }
+}
 
+@media(max-width:768px) { table th:nth-child(2), table td:nth-child(2), table th:nth-child(3), table td:nth-child(3) { display:none; } }
+tbody tr { cursor: pointer; }
+.detail-row td { background: #f8f9fa; padding: 16px 20px !important; border-left: 4px solid #e85d04; cursor: default; }
+.detail-content { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; font-size: 12px; }
+@media(max-width:768px) { .detail-content { grid-template-columns: 1fr; } }
 </style>
 </head>
 <body>
-<nav class="top-nav"><a href="accueil.html" class="nav-brand-link ">FICT</a><div class="nav-links"><a href="index.html" class="nav-link ">🗺️ Carte</a><a href="parlementaires.html" class="nav-link ">👥 Parlementaires</a><a href="partis.html" class="nav-link ">🏛️ Partis</a><a href="groupes.html" class="nav-link active">🏭 Industriels</a><a href="entreprises.html" class="nav-link ">🏢 Entreprises</a><a href="europe.html" class="nav-link ">🇪🇺 Europe V2</a><a href="methodologie.html" class="nav-link ">📖 Méthode</a></div></nav><style>.nav-brand-link{color:white;text-decoration:none;font-weight:700;font-size:16px;white-space:nowrap;padding:4px 8px;border-radius:6px;transition:all .2s}.nav-brand-link:hover,.nav-brand-link.active{background:rgba(255,255,255,.15)}</style>
+<nav class="top-nav"><a href="accueil.html" class="nav-brand-link ">🥩 FICT</a><div class="nav-links"><a href="index.html" class="nav-link ">🗺️ Carte</a><a href="parlementaires.html" class="nav-link ">👥 Parlementaires</a><a href="partis.html" class="nav-link ">🏛️ Partis</a><a href="groupes.html" class="nav-link active">🏭 Industriels</a><a href="entreprises.html" class="nav-link ">🏢 Entreprises</a><a href="europe.html" class="nav-link ">🇪🇺 Europe V2</a><a href="methodologie.html" class="nav-link ">📖 Méthode</a></div></nav><style>.nav-brand-link{color:white;text-decoration:none;font-weight:700;font-size:16px;white-space:nowrap;padding:4px 8px;border-radius:6px;transition:all .2s}.nav-brand-link:hover,.nav-brand-link.active{background:rgba(255,255,255,.15)}</style>
 <div class="container">
   <div class="page-title">🏭 Groupes industriels</div>
   <div class="page-subtitle">Implantation multi-sites des membres FICT (classés par nombre de départements couverts)</div>
   <div class="card">
+    <label for="search" class="sr-only">Rechercher un groupe industriel</label>
     <input type="text" class="search-bar" id="search" placeholder="🔍 Rechercher un groupe..." oninput="renderGroupes()">
     <div style="overflow-x:auto">
     <table>
@@ -76,10 +92,16 @@ tr:hover td { background: #fafafa; }
   </div>
 </div>
 <script>
-let allData = [], sortCol = 4, sortDir = -1;
+let allData = [], allSites = [], allParls = [], sortCol = 4, sortDir = -1;
 
-fetch('data/groupes.json').then(r=>r.json()).then(data => {
-  allData = data;
+Promise.all([
+  fetch('data/groupes.json').then(r=>r.json()),
+  fetch('data/sites.json').then(r=>r.json()),
+  fetch('data/parlementaires.json').then(r=>r.json())
+]).then(([groupes, sites, parls]) => {
+  allData = groupes;
+  allSites = sites;
+  allParls = parls;
   renderGroupes();
 });
 
@@ -95,7 +117,7 @@ function renderGroupes() {
     const depts = g.depts.split(',').map(d=>d.trim()).filter(Boolean);
     const deptsHtml = depts.map(d=>`<span style="background:#f0f0f0;border-radius:3px;padding:1px 5px;font-size:11px;margin:1px">${d}</span>`).join('');
     const multiStyle = g.nb_depts >= 5 ? 'font-weight:700;color:#e85d04' : g.nb_depts >= 3 ? 'font-weight:600' : '';
-    return `<tr>
+    return `<tr onclick="toggleDetail(this,'${g.siren}')">
       <td><b>${g.nom}</b></td>
       <td style="font-size:11px;color:#888">${g.siren}</td>
       <td style="font-size:12px">${g.categorie||'-'}</td>
@@ -109,6 +131,22 @@ function renderGroupes() {
 function sortTable(col) {
   if (sortCol===col) sortDir*=-1; else {sortCol=col;sortDir=col>=3?-1:1;}
   renderGroupes();
+}
+
+function toggleDetail(row, siren) {
+  const next = row.nextElementSibling;
+  if (next && next.classList.contains('detail-row')) { next.remove(); return; }
+  document.querySelectorAll('.detail-row').forEach(r=>r.remove());
+  const grpSites = allSites.filter(s=>s.siren===siren);
+  const depts = [...new Set(grpSites.map(s=>s.dept).filter(Boolean))];
+  const grpParls = allParls.filter(p=>depts.includes(p.dept)).sort((a,b)=>b.score-a.score).slice(0,5);
+  const tr = document.createElement('tr');
+  tr.className = 'detail-row';
+  tr.innerHTML = `<td colspan="6"><div class="detail-content">
+    <div><strong>Sites (${grpSites.length})</strong><br>${grpSites.length ? grpSites.map(s=>`${s.commune||''} (${s.dept})`).join(', ') : 'Aucun site trouve'}</div>
+    <div><strong>Elus cles</strong><br>${grpParls.length ? grpParls.map(p=>`<a href="fiche.html?id=${encodeURIComponent(p.id)}" style="color:#4361ee;text-decoration:none">${p.nom}</a> <span style="color:#888">(${p.score.toFixed(1)})</span>`).join(', ') : 'Aucun elu dans ces departements'}</div>
+  </div></td>`;
+  row.after(tr);
 }
 </script>
 </body>

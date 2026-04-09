@@ -7,7 +7,7 @@
 <title>FICT - Veille parlementaire</title>
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f5f7; color: #1d1d1f; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f5f7; color: #1d1d1f; color-scheme: light; }
 .top-nav { background: #1a1a2e; color: white; padding: 0 24px; display: flex; align-items: center; gap: 24px; height: 52px; position: sticky; top: 0; z-index: 1000; }
 .nav-brand { font-weight: 700; font-size: 16px; white-space: nowrap; }
 .nav-links { display: flex; gap: 4px; overflow-x: auto; -webkit-overflow-scrolling: touch; }
@@ -33,22 +33,32 @@ th { text-align: left; padding: 10px 12px; background: #f8f9fa; font-weight: 600
 th:hover { background: #e9ecef; }
 td { padding: 8px 12px; border-bottom: 1px solid #f0f0f0; vertical-align: middle; }
 tr:hover td { background: #fafafa; }
-.search-bar { width: 100%; padding: 10px 14px; border: 1px solid #ddd; border-radius: 8px; font-size: 14px; margin-bottom: 12px; }
+.search-bar { width: 100%; padding: 10px 14px; border: 1px solid #ddd; border-radius: 8px; font-size: 14px; margin-bottom: 12px; position: relative; z-index: 1; }
+.search-bar:focus { outline: 2px solid #e85d04; outline-offset: 1px; border-color: #e85d04; }
 .filter-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
-.filter-select { padding: 6px 10px; border: 1px solid #ddd; border-radius: 6px; font-size: 13px; background: white; }
+.filter-select { padding: 6px 10px; border: 1px solid #ddd; border-radius: 6px; font-size: 13px; background: white; color: #1d1d1f; }
+.filter-select option { background: white; color: #1d1d1f; }
 .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin-bottom: 24px; }
 .stat-card { background: white; border-radius: 10px; padding: 20px 16px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); transition: box-shadow .2s, transform .2s; border: 1px solid transparent; }
 .stat-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.12); transform: translateY(-1px); border-color: rgba(232,93,4,0.15); }
 .stat-value { font-size: 36px; font-weight: 700; color: #1a1a2e; font-feature-settings: "tnum"; }
-.stat-label { font-size: 12px; color: #888; margin-top: 6px; }
+.stat-label { font-size: 12px; color: #666; margin-top: 6px; }
 .pagination { display: flex; gap: 4px; justify-content: center; margin-top: 16px; flex-wrap: wrap; }
 .page-btn { padding: 5px 10px; border: 1px solid #ddd; border-radius: 4px; background: white; cursor: pointer; font-size: 13px; }
 .page-btn.active { background: #1a1a2e; color: white; border-color: #1a1a2e; }
 .page-btn:hover:not(.active) { background: #f0f0f0; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+:focus-visible { outline: 2px solid #e85d04; outline-offset: 2px; }
 @media(max-width:640px) {
   .top-nav { padding: 6px 12px; gap: 8px; height: auto; flex-wrap: wrap; }
   .nav-links { width: 100%; overflow-x: auto; }
   .nav-link { padding: 4px 8px; font-size: 11px; }
+}
+@media(max-width:768px) {
+  table { font-size: 12px; }
+  th, td { padding: 6px 8px; }
+  .filter-row { flex-direction: column; }
+  .filter-select { width: 100%; }
 }
 
 .hero { background: #1a1a2e; background-image: radial-gradient(rgba(255,255,255,.06) 1px, transparent 1px); background-size: 24px 24px; color: white; padding: 56px 20px; text-align: center; }
@@ -59,10 +69,15 @@ tr:hover td { background: #fafafa; }
 .btn-primary:hover { background: #c94e00; }
 .btn-secondary { background: rgba(255,255,255,.15); color: white; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 14px; border: 1px solid rgba(255,255,255,.3); transition: all .2s; }
 .btn-secondary:hover { background: rgba(255,255,255,.25); }
-.section-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin-bottom: 32px; }
-.main-grid { display: grid; grid-template-columns: 1fr 340px; gap: 24px; margin-bottom: 32px; align-items: start; }
-@media(max-width:900px) { .main-grid { grid-template-columns: 1fr; } }
+.section-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 16px; }
+.section-cards-secondary { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-bottom: 24px; }
+.main-grid { margin-bottom: 32px; }
+@media(max-width:900px) { .section-cards { grid-template-columns: 1fr; } }
 .feature-card { background: white; border-radius: 12px; padding: 24px; box-shadow: 0 1px 4px rgba(0,0,0,.08); text-decoration: none; color: inherit; transition: all .2s; border-top: 4px solid #e85d04; }
+.feature-card.secondary { border-top-color: #ddd; padding: 18px; }
+.feature-card.secondary .feature-icon { font-size: 22px; margin-bottom: 6px; }
+.feature-card.secondary .feature-title { font-size: 14px; }
+.feature-card.secondary .feature-desc { font-size: 12px; }
 .feature-card:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(0,0,0,.12); }
 .feature-icon { font-size: 28px; margin-bottom: 10px; }
 .feature-title { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
@@ -76,16 +91,14 @@ tr:hover td { background: #fafafa; }
 </style>
 </head>
 <body>
-<nav class="top-nav"><a href="accueil.html" class="nav-brand-link active">FICT</a><div class="nav-links"><a href="index.html" class="nav-link ">🗺️ Carte</a><a href="parlementaires.html" class="nav-link ">👥 Parlementaires</a><a href="partis.html" class="nav-link ">🏛️ Partis</a><a href="groupes.html" class="nav-link ">🏭 Industriels</a><a href="entreprises.html" class="nav-link ">🏢 Entreprises</a><a href="europe.html" class="nav-link ">🇪🇺 Europe V2</a><a href="methodologie.html" class="nav-link ">📖 Méthode</a></div></nav><style>.nav-brand-link{color:white;text-decoration:none;font-weight:700;font-size:16px;white-space:nowrap;padding:4px 8px;border-radius:6px;transition:all .2s}.nav-brand-link:hover,.nav-brand-link.active{background:rgba(255,255,255,.15)}</style>
+<nav class="top-nav"><a href="accueil.html" class="nav-brand-link active">🥩 FICT</a><div class="nav-links"><a href="index.html" class="nav-link ">🗺️ Carte</a><a href="parlementaires.html" class="nav-link ">👥 Parlementaires</a><a href="partis.html" class="nav-link ">🏛️ Partis</a><a href="groupes.html" class="nav-link ">🏭 Industriels</a><a href="entreprises.html" class="nav-link ">🏢 Entreprises</a><a href="europe.html" class="nav-link ">🇪🇺 Europe V2</a><a href="methodologie.html" class="nav-link ">📖 Méthode</a></div></nav><style>.nav-brand-link{color:white;text-decoration:none;font-weight:700;font-size:16px;white-space:nowrap;padding:4px 8px;border-radius:6px;transition:all .2s}.nav-brand-link:hover,.nav-brand-link.active{background:rgba(255,255,255,.15)}</style>
 
 <div class="hero">
   <div style="max-width:800px;margin:0 auto">
     <div style="display:inline-block;background:rgba(232,93,4,.2);color:#e85d04;border:1px solid rgba(232,93,4,.4);padding:4px 16px;border-radius:20px;font-size:12px;font-weight:600;margin-bottom:18px;letter-spacing:.6px">OUTIL EXCLUSIF · DONNÉES AVRIL 2026</div>
     <div class="hero-title">Veille <span style="color:#e85d04">parlementaire</span><br>Charcuterie &amp; Filière viande</div>
     <div class="hero-subtitle">
-      Cartographiez l'influence des élus sur les réglementations agroalimentaires.
-      Identifiez les parlementaires clés par implantation industrielle, implication sur les textes agricoles,
-      et position sur les votes EGALIM.
+      Identifiez les élus clés de la filière viande : implantation industrielle, votes EGALIM, commissions agricoles.
     </div>
     <div class="hero-cta">
       <a href="index.html" class="btn-primary">🗺️ Explorer la carte</a>
@@ -95,51 +108,51 @@ tr:hover td { background: #fafafa; }
 </div>
 
 <div class="container">
-  <div class="stats-grid" style="margin-top:32px">
-    <div class="stat-card"><div class="stat-value">577</div><div class="stat-label">Députés</div></div>
-    <div class="stat-card"><div class="stat-value">348</div><div class="stat-label">Sénateurs</div></div>
+  <div class="stats-grid" style="margin-top:32px;grid-template-columns:repeat(3,1fr)">
+    <div class="stat-card"><div class="stat-value">925</div><div class="stat-label">Parlementaires analysés</div></div>
     <div class="stat-card"><div class="stat-value">212</div><div class="stat-label">Sites de production FICT</div></div>
-    <div class="stat-card"><div class="stat-value">601</div><div class="stat-label">Élus en zone FICT</div></div>
-    <div class="stat-card"><div class="stat-value">21</div><div class="stat-label">Groupes politiques</div></div>
-    <div class="stat-card"><div class="stat-value">7</div><div class="stat-label">Votes suivis (EGALIM…)</div></div>
+    <div class="stat-card"><div class="stat-value">7</div><div class="stat-label">Votes suivis (EGALIM...)</div></div>
+  </div>
+
+  <div class="section-cards">
+    <a href="index.html" class="feature-card">
+      <div class="feature-icon">🗺️</div>
+      <div class="feature-title">Carte interactive</div>
+      <div class="feature-desc">Choroplèthe départementale par intensité industrielle. Cliquez sur un département pour voir les parlementaires et leurs scores.</div>
+    </a>
+    <a href="parlementaires.html" class="feature-card">
+      <div class="feature-icon">👥</div>
+      <div class="feature-title">Parlementaires</div>
+      <div class="feature-desc">925 élus classés par score FICT. Filtres par chambre, groupe, département et commission.</div>
+    </a>
+    <a href="europe.html" class="feature-card">
+      <div class="feature-icon">🇪🇺</div>
+      <div class="feature-title">Eurodéputés</div>
+      <div class="feature-desc">73 eurodéputés français : posture sur Farm to Fork, additifs et nitrites.</div>
+    </a>
+  </div>
+  <div class="section-cards-secondary">
+    <a href="partis.html" class="feature-card secondary">
+      <div class="feature-icon">🏛️</div>
+      <div class="feature-title">Partis</div>
+      <div class="feature-desc">Exposition par groupe politique aux zones FICT.</div>
+    </a>
+    <a href="groupes.html" class="feature-card secondary">
+      <div class="feature-icon">🏭</div>
+      <div class="feature-title">Industriels</div>
+      <div class="feature-desc">152 groupes multi-sites : Bigard, Herta, Fleury Michon...</div>
+    </a>
+    <a href="entreprises.html" class="feature-card secondary">
+      <div class="feature-icon">🏢</div>
+      <div class="feature-title">Entreprises</div>
+      <div class="feature-desc">CA, effectifs, dirigeants enrichis via INPI + INSEE.</div>
+    </a>
+  </div>
+  <div style="text-align:center;margin-bottom:24px">
+    <a href="methodologie.html" style="font-size:13px;color:#666;text-decoration:none">📖 Voir la méthodologie et les sources →</a>
   </div>
 
   <div class="main-grid">
-    <div>
-      <div class="section-cards">
-        <a href="index.html" class="feature-card">
-          <div class="feature-icon">🗺️</div>
-          <div class="feature-title">Carte interactive</div>
-          <div class="feature-desc">Choroplèthe départementale par intensité industrielle. Cliquez sur un département pour voir les parlementaires et leurs scores.</div>
-        </a>
-        <a href="parlementaires.html" class="feature-card">
-          <div class="feature-icon">👥</div>
-          <div class="feature-title">Parlementaires</div>
-          <div class="feature-desc">925 élus classés par score FICT. Filtres par chambre, groupe, département et commission. Fiche détaillée par élu.</div>
-        </a>
-        <a href="partis.html" class="feature-card">
-          <div class="feature-icon">🏛️</div>
-          <div class="feature-title">Analyse par parti</div>
-          <div class="feature-desc">Exposition de chaque groupe politique aux zones de production FICT. Classement par score moyen et % d'élus en zone.</div>
-        </a>
-        <a href="groupes.html" class="feature-card">
-          <div class="feature-icon">🏭</div>
-          <div class="feature-title">Groupes industriels</div>
-          <div class="feature-desc">Empreinte nationale des 152 groupes multi-sites. Bigard, Herta, Fleury Michon... - départements couverts et parlementaires concernés.</div>
-        </a>
-        <a href="entreprises.html" class="feature-card">
-          <div class="feature-icon">🏢</div>
-          <div class="feature-title">Entreprises FICT</div>
-          <div class="feature-desc">Profils enrichis des adhérents : CA, effectifs, dirigeants, forme juridique. Sources INPI + INSEE via API Recherche Entreprises.</div>
-        </a>
-        <a href="methodologie.html" class="feature-card">
-          <div class="feature-icon">📖</div>
-          <div class="feature-title">Méthodologie</div>
-          <div class="feature-desc">Formule du score FICT, sources de données, votes suivis (EGALIM 1/2/3, LOA 2024, PPL revenu agri…) et date de collecte.</div>
-        </a>
-      </div>
-    </div>
-
     <div class="card">
       <div style="font-size:15px;font-weight:700;margin-bottom:12px;color:#1a1a2e">🏆 Top 10 score FICT</div>
       <div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid #f0f0f0"><span style="width:22px;height:22px;border-radius:50%;background:#e85d04;color:white;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0">1</span><div style="flex:1;min-width:0"><div style="font-weight:600;font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">Tissot Jean-Claude</div><div style="font-size:11px;color:#888">SEN · 42 Loire</div></div><span style="background:#1a1a2e;color:white;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:700;flex-shrink:0">59.2</span></div><div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid #f0f0f0"><span style="width:22px;height:22px;border-radius:50%;background:#e85d04;color:white;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0">2</span><div style="flex:1;min-width:0"><div style="font-weight:600;font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">Gassilloud Thomas</div><div style="font-size:11px;color:#888">AN · 69 Rhône</div></div><span style="background:#1a1a2e;color:white;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:700;flex-shrink:0">40.8</span></div><div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid #f0f0f0"><span style="width:22px;height:22px;border-radius:50%;background:#e85d04;color:white;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0">3</span><div style="flex:1;min-width:0"><div style="font-weight:600;font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">Taurinya Andrée</div><div style="font-size:11px;color:#888">AN · 42 Loire</div></div><span style="background:#1a1a2e;color:white;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:700;flex-shrink:0">37.7</span></div><div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid #f0f0f0"><span style="width:22px;height:22px;border-radius:50%;background:#e85d04;color:white;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0">4</span><div style="flex:1;min-width:0"><div style="font-weight:600;font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">Courbon Pierrick</div><div style="font-size:11px;color:#888">AN · 42 Loire</div></div><span style="background:#1a1a2e;color:white;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:700;flex-shrink:0">37.7</span></div><div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid #f0f0f0"><span style="width:22px;height:22px;border-radius:50%;background:#e85d04;color:white;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0">5</span><div style="flex:1;min-width:0"><div style="font-weight:600;font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">Mandon Emmanuel</div><div style="font-size:11px;color:#888">AN · 42 Loire</div></div><span style="background:#1a1a2e;color:white;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:700;flex-shrink:0">37.4</span></div><div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid #f0f0f0"><span style="width:22px;height:22px;border-radius:50%;background:#e85d04;color:white;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0">6</span><div style="flex:1;min-width:0"><div style="font-weight:600;font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">Bonnet Sylvie</div><div style="font-size:11px;color:#888">AN · 42 Loire</div></div><span style="background:#1a1a2e;color:white;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:700;flex-shrink:0">37.4</span></div><div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid #f0f0f0"><span style="width:22px;height:22px;border-radius:50%;background:#e85d04;color:white;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0">7</span><div style="flex:1;min-width:0"><div style="font-weight:600;font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">Taite Jean-Pierre</div><div style="font-size:11px;color:#888">AN · 42 Loire</div></div><span style="background:#1a1a2e;color:white;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:700;flex-shrink:0">37.4</span></div><div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid #f0f0f0"><span style="width:22px;height:22px;border-radius:50%;background:#e85d04;color:white;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0">8</span><div style="flex:1;min-width:0"><div style="font-weight:600;font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">Vermorel-Marques Antoine</div><div style="font-size:11px;color:#888">AN · 42 Loire</div></div><span style="background:#1a1a2e;color:white;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:700;flex-shrink:0">37.4</span></div><div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid #f0f0f0"><span style="width:22px;height:22px;border-radius:50%;background:#e85d04;color:white;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0">9</span><div style="flex:1;min-width:0"><div style="font-weight:600;font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">Cukierman Cécile</div><div style="font-size:11px;color:#888">SEN · 42 Loire</div></div><span style="background:#1a1a2e;color:white;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:700;flex-shrink:0">37.0</span></div><div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid #f0f0f0"><span style="width:22px;height:22px;border-radius:50%;background:#e85d04;color:white;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0">10</span><div style="flex:1;min-width:0"><div style="font-weight:600;font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">Reynaud Hervé</div><div style="font-size:11px;color:#888">SEN · 42 Loire</div></div><span style="background:#1a1a2e;color:white;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:700;flex-shrink:0">37.0</span></div>

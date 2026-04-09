@@ -7,7 +7,7 @@
 <title>FICT - Méthodologie</title>
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f5f7; color: #1d1d1f; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f5f7; color: #1d1d1f; color-scheme: light; }
 .top-nav { background: #1a1a2e; color: white; padding: 0 24px; display: flex; align-items: center; gap: 24px; height: 52px; position: sticky; top: 0; z-index: 1000; }
 .nav-brand { font-weight: 700; font-size: 16px; white-space: nowrap; }
 .nav-links { display: flex; gap: 4px; overflow-x: auto; -webkit-overflow-scrolling: touch; }
@@ -33,22 +33,32 @@ th { text-align: left; padding: 10px 12px; background: #f8f9fa; font-weight: 600
 th:hover { background: #e9ecef; }
 td { padding: 8px 12px; border-bottom: 1px solid #f0f0f0; vertical-align: middle; }
 tr:hover td { background: #fafafa; }
-.search-bar { width: 100%; padding: 10px 14px; border: 1px solid #ddd; border-radius: 8px; font-size: 14px; margin-bottom: 12px; }
+.search-bar { width: 100%; padding: 10px 14px; border: 1px solid #ddd; border-radius: 8px; font-size: 14px; margin-bottom: 12px; position: relative; z-index: 1; }
+.search-bar:focus { outline: 2px solid #e85d04; outline-offset: 1px; border-color: #e85d04; }
 .filter-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
-.filter-select { padding: 6px 10px; border: 1px solid #ddd; border-radius: 6px; font-size: 13px; background: white; }
+.filter-select { padding: 6px 10px; border: 1px solid #ddd; border-radius: 6px; font-size: 13px; background: white; color: #1d1d1f; }
+.filter-select option { background: white; color: #1d1d1f; }
 .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin-bottom: 24px; }
 .stat-card { background: white; border-radius: 10px; padding: 20px 16px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); transition: box-shadow .2s, transform .2s; border: 1px solid transparent; }
 .stat-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.12); transform: translateY(-1px); border-color: rgba(232,93,4,0.15); }
 .stat-value { font-size: 36px; font-weight: 700; color: #1a1a2e; font-feature-settings: "tnum"; }
-.stat-label { font-size: 12px; color: #888; margin-top: 6px; }
+.stat-label { font-size: 12px; color: #666; margin-top: 6px; }
 .pagination { display: flex; gap: 4px; justify-content: center; margin-top: 16px; flex-wrap: wrap; }
 .page-btn { padding: 5px 10px; border: 1px solid #ddd; border-radius: 4px; background: white; cursor: pointer; font-size: 13px; }
 .page-btn.active { background: #1a1a2e; color: white; border-color: #1a1a2e; }
 .page-btn:hover:not(.active) { background: #f0f0f0; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+:focus-visible { outline: 2px solid #e85d04; outline-offset: 2px; }
 @media(max-width:640px) {
   .top-nav { padding: 6px 12px; gap: 8px; height: auto; flex-wrap: wrap; }
   .nav-links { width: 100%; overflow-x: auto; }
   .nav-link { padding: 4px 8px; font-size: 11px; }
+}
+@media(max-width:768px) {
+  table { font-size: 12px; }
+  th, td { padding: 6px 8px; }
+  .filter-row { flex-direction: column; }
+  .filter-select { width: 100%; }
 }
 
 .meth-section { background: white; border-radius: 12px; padding: 24px; box-shadow: 0 1px 4px rgba(0,0,0,.08); margin-bottom: 20px; }
@@ -64,7 +74,7 @@ tr:hover td { background: #fafafa; }
 </style>
 </head>
 <body>
-<nav class="top-nav"><a href="accueil.html" class="nav-brand-link ">FICT</a><div class="nav-links"><a href="index.html" class="nav-link ">🗺️ Carte</a><a href="parlementaires.html" class="nav-link ">👥 Parlementaires</a><a href="partis.html" class="nav-link ">🏛️ Partis</a><a href="groupes.html" class="nav-link ">🏭 Industriels</a><a href="entreprises.html" class="nav-link ">🏢 Entreprises</a><a href="europe.html" class="nav-link ">🇪🇺 Europe V2</a><a href="methodologie.html" class="nav-link active">📖 Méthode</a></div></nav><style>.nav-brand-link{color:white;text-decoration:none;font-weight:700;font-size:16px;white-space:nowrap;padding:4px 8px;border-radius:6px;transition:all .2s}.nav-brand-link:hover,.nav-brand-link.active{background:rgba(255,255,255,.15)}</style>
+<nav class="top-nav"><a href="accueil.html" class="nav-brand-link ">🥩 FICT</a><div class="nav-links"><a href="index.html" class="nav-link ">🗺️ Carte</a><a href="parlementaires.html" class="nav-link ">👥 Parlementaires</a><a href="partis.html" class="nav-link ">🏛️ Partis</a><a href="groupes.html" class="nav-link ">🏭 Industriels</a><a href="entreprises.html" class="nav-link ">🏢 Entreprises</a><a href="europe.html" class="nav-link ">🇪🇺 Europe V2</a><a href="methodologie.html" class="nav-link active">📖 Méthode</a></div></nav><style>.nav-brand-link{color:white;text-decoration:none;font-weight:700;font-size:16px;white-space:nowrap;padding:4px 8px;border-radius:6px;transition:all .2s}.nav-brand-link:hover,.nav-brand-link.active{background:rgba(255,255,255,.15)}</style>
 <div class="container" style="max-width:900px">
   <div class="page-title">📖 Méthodologie &amp; Sources</div>
   <div class="page-subtitle">Comment sont calculés les scores et d'où viennent les données</div>
@@ -92,6 +102,23 @@ score_engagement = Σ memberships (0–11 points max)<br>
 &nbsp;&nbsp;&nbsp;&nbsp;<span class="formula-comment"># commission_enquete_gd, mission_nitrites, groupe_etude_iaa...</span>
     </div>
     <p style="font-size:12px;color:#888;margin-top:8px">Géographie : le score utilise le département (et non la circonscription) comme unité d'analyse - précision sub-départementale non disponible via SIRENE.</p>
+
+    <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:18px 22px;margin-top:16px">
+      <div style="font-weight:700;font-size:14px;color:#166534;margin-bottom:10px">Exemple : député fictif du dept. 42 (Loire)</div>
+      <div style="font-size:13px;color:#555;line-height:1.8">
+        <strong>1. Score implantation (score_eco)</strong><br>
+        Dept. 42 : 13 sites FICT dont 8 charcuteries, 3 transfo viande, 2 abattoirs<br>
+        <code style="background:#e8f5e9;padding:2px 6px;border-radius:3px">score_eco = 13 + 2x8 + 1x3 + 0.5x2 = 33.0</code><br><br>
+        <strong>2. Score implication (score_impl)</strong><br>
+        Membre commission agriculture (3 pts) + mission EGALIM (2 pts)<br>
+        <code style="background:#e8f5e9;padding:2px 6px;border-radius:3px">score_impl = 3 + 2 = 5.0</code><br><br>
+        <strong>3. Score engagement</strong><br>
+        Groupe d'etude IAA (1 pt) + observatoire des marges (1 pt)<br>
+        <code style="background:#e8f5e9;padding:2px 6px;border-radius:3px">score_engagement = 2</code><br><br>
+        <strong>4. Score FICT final</strong><br>
+        <code style="background:#e8f5e9;padding:2px 6px;border-radius:3px">score = 33.0 x (1 + (5.0 + 2) / 10) = 33.0 x 1.7 = <strong style="color:#e85d04;font-size:15px">56.1</strong></code>
+      </div>
+    </div>
   </div>
 
   <div class="meth-section">
@@ -136,46 +163,6 @@ score_engagement = Σ memberships (0–11 points max)<br>
   </div>
 
   <div class="meth-section">
-    <div class="meth-title">🇪🇺 Formule du score eurodéputés (score_eu)</div>
-    <p style="font-size:13px;color:#555;margin-bottom:12px">Le score EU mesure l'<strong>activité d'un eurodéputé français sur les thèmes FICT</strong> au Parlement Européen : réglementation alimentaire, additifs, nitrites, Farm to Fork.</p>
-    <div class="formula-box">
-score_eu = Farm_to_Fork × 3<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; + nitrites × 3<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; + additifs × 2<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; + EGAlim × 1<br>
-<br>
-<span class="formula-comment"># Chaque composante = nombre d'interventions au PE (questions, rapports, discours)</span><br>
-<span class="formula-comment"># Score élevé = forte activité sur ces thèmes — pas nécessairement une position favorable</span>
-    </div>
-    <p style="font-size:12px;color:#888;margin-top:8px">⚠️ Le score mesure l'activité, pas la position. Un adversaire actif peut avoir un score élevé.</p>
-  </div>
-
-  <div class="meth-section">
-    <div class="meth-title">🇪🇺 Posture lobbying (favorable / neutre / défavorable)</div>
-    <p style="font-size:13px;color:#555;margin-bottom:12px">La posture est un <strong>proxy basé sur le groupe politique</strong>, dérivé du vote du Parlement Européen sur la résolution Farm to Fork (2021). Elle ne reflète pas les positions individuelles.</p>
-    <table class="source-table">
-      <thead><tr><th>Posture</th><th>Groupes politiques</th><th>Logique</th></tr></thead>
-      <tbody>
-        <tr><td><span style="background:#d1fae5;color:#155724;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:700">🟢 Favorable</span></td><td>EPP · ECR · Patriotes pour l'Europe · ENS</td><td style="font-size:12px;color:#555">Ont voté <strong>contre</strong> la résolution Farm to Fork 2021. Historiquement opposés à la surréglementation alimentaire.</td></tr>
-        <tr><td><span style="background:#fff3cd;color:#856404;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:700">🟡 Neutre</span></td><td>Renew Europe · Non inscrits</td><td style="font-size:12px;color:#555">Positions divisées ou pragmatiques. Sensibles aux arguments économiques (emploi, filière).</td></tr>
-        <tr><td><span style="background:#fee2e2;color:#7f1d1d;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:700">🔴 Défavorable</span></td><td>Verts/ALE · S&amp;D · Gauche GUE/NGL</td><td style="font-size:12px;color:#555">Ont voté <strong>pour</strong> la résolution Farm to Fork 2021. Favorables à la restriction des additifs.</td></tr>
-      </tbody>
-    </table>
-  </div>
-
-  <div class="meth-section">
-    <div class="meth-title">📂 Sources de données — Parlement Européen</div>
-    <table class="source-table">
-      <thead><tr><th>Source</th><th>Données récupérées</th><th>Date collecte</th></tr></thead>
-      <tbody>
-        <tr><td><span class="source-tag">Parlement Européen</span><br><small>europarl.europa.eu — fiches MEPs</small></td><td>Identités, groupes politiques, photos, URLs fiches officielles des 73 eurodéputés français</td><td>Avril 2026</td></tr>
-        <tr><td><span class="source-tag">Pappers Politique</span><br><small>politique.pappers.fr — acteurs PE</small></td><td>Activité parlementaire : interventions sur Farm to Fork, nitrites, additifs, EGAlim — mots-clés EN/FR</small></td><td>Avril 2026</td></tr>
-        <tr><td><span class="source-tag">Vote PE 2021</span><br><small>Résolution Farm to Fork — scrutin nominal</small></td><td>Base de la classification posture par groupe politique (favorable / neutre / défavorable)</td><td>Référence 2021</td></tr>
-      </tbody>
-    </table>
-  </div>
-
-  <div class="meth-section">
     <div class="meth-title">⚠️ Limites à connaître</div>
     <ul style="font-size:13px;color:#555;line-height:2;padding-left:20px">
       <li><strong>Niveau département</strong> : le score utilise le département (pas la circonscription) - tous les élus d'un département reçoivent le même score d'implantation.</li>
@@ -183,8 +170,6 @@ score_eu = Farm_to_Fork × 3<br>
       <li><strong>Scrutins Sénat</strong> : les votes nominatifs ne sont disponibles que pour les députés (AN). Les sénateurs votent selon des procédures différentes.</li>
       <li><strong>SIRENE</strong> : délai de mise à jour possible (ouvertures/fermetures récentes peuvent manquer).</li>
       <li><strong>17e législature en cours</strong> : <code>sort: null</code> sur les amendements = normal pour la session en cours (pas encore finalisés).</li>
-      <li><strong>Posture EU = proxy groupe</strong> : la posture (favorable/neutre/défavorable) est calculée au niveau du groupe politique, pas de l'individu. Un eurodéputé peut avoir une position divergente de son groupe.</li>
-      <li><strong>Score EU = activité, pas opinion</strong> : un score élevé indique de l'activité sur les thèmes FICT, pas nécessairement une position favorable. Pascal Canfin (score 248) est très actif mais défavorable à nos positions.</li>
     </ul>
   </div>
 
